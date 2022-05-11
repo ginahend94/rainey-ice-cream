@@ -6,39 +6,39 @@ import menu from './tabs/menu.js';
 import about from './tabs/about.js';
 import order from './tabs/order.js';
 import locations from './tabs/locations.js';
+import Footer from './elements/footer.js';
 
 const page = () => {
 
-    const main = document.createElement('main');
-    main.appendChild(home());
+    const footer = Footer();
+    let main = home();
 
     const switchTab = e => {
         const button = e.target;
         Header.navButtons.forEach(a => a.classList.remove('active'));
         button.classList.add('active');
-        main.innerHTML = '';
-        let activeTab;
+        wrapper.removeChild(main);
         switch (button.dataset.target) {
             case 'home':
-                activeTab = home();
+                main = home();
                 break;
             case 'menu':
-                activeTab = menu();
+                main = menu();
                 break;
             case 'about':
-                activeTab = about();
+                main = about();
                 break;
             case 'order':
-                activeTab = order();
+                main = order();
                 break;
             case 'locations':
-                activeTab = locations();
+                main = locations();
                 break;
             default:
-                activeTab = home();
+                main = home();
                 break;
         }
-        main.appendChild(activeTab);
+        wrapper.insertBefore(main, footer)
     }
 
     const wrapper = document.createElement('div');
@@ -49,6 +49,7 @@ const page = () => {
     })
 
     wrapper.appendChild(main);
+    wrapper.appendChild(footer);
 
     return wrapper;
 }
