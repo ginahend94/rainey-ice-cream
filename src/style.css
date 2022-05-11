@@ -37,7 +37,7 @@ body {
 }
 
 .wrapper {
-    max-width:960px;
+    max-width:1200px;
     margin:auto;
     display: flex;
     flex-direction: column;
@@ -88,8 +88,7 @@ nav button {
 }
 
 nav button:hover {
-    background-color: rgb(var(--old-mid-green));
-    color:rgb(var(--white));
+    background-color: rgb(var(--mid-green));
 }
 
 nav button:active {
