@@ -1,6 +1,6 @@
 import Logo from '../assets/images/rainey logo outline.png';
 
-export default () => {
+export default (() => {
     const header = document.createElement('header');
 
     const logo = new Image(); // TESTING
@@ -8,7 +8,7 @@ export default () => {
 
     const logoLink = document.createElement('a');
     header.appendChild(logoLink);
-    logoLink.href = '#';
+    logoLink.href = '/';
     logoLink.title = "Rainey Ice Cream";
     logoLink.alt = "Rainey \nIce Cream";
     logoLink.appendChild(logo);
@@ -25,8 +25,13 @@ export default () => {
         button.dataset.target = link;
         ul.appendChild(li);
         button.textContent = link;
+        li.classList.add(link);
+        //test
+        if (link == 'home') {
+            button.classList.add('active')
+        }
     });
+    const navButtons = Array.from(nav.querySelectorAll('button'));
 
-
-    return header;
-}
+    return { header, navButtons };
+})();
