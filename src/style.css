@@ -3,7 +3,7 @@
     --light-black: 66, 87, 83;
 	--white: 234, 244, 244;
 	--dark-green: 107, 144, 128;
-	---old-mid-green: 164, 195, 178;
+	--old-mid-green: 164, 195, 178;
 	--light-green: 204, 227, 222;
 	--mid-green: 204, 227, 222;
     --header-font: 'Oleo Swash';
@@ -59,39 +59,61 @@ nav {
 }
 
 nav ul {
-    padding: 5px;
+    padding: 0;
     margin:0;
     list-style: none;
     display: flex;
     justify-content: space-evenly;
-    background-color: rgb(var(--mid-green));
+    /* background-color: rgb(var(--mid-green)); */
+    border-bottom: solid 3px rgb(var(--dark-green));
 }
 
 nav li {
     flex:auto
 }
 
-nav li:last-child button {
-    border-right:none;
-}
-
 nav button {
     font-family: inherit;
     color:inherit;
     text-transform: uppercase;
-    padding: 10px;
     width:100%;
     height:100%;
+    padding: 10px;
     cursor: pointer;
-    border-right:solid 1px rgba(var(--dark-green), .3);
-    border-left: none;
-    border-top:none;
-    border-bottom:none;
-    background-color: rgb(var(--mid-green));
     transition:.2s;
+    border:none;
+    background-color: transparent;
+    position: relative;
+    z-index: 9;
 }
 
 nav button:hover {
+    background-color: rgb(var(--old-mid-green));
+    color:rgb(var(--white));
+}
+
+nav button:active {
+    opacity: .6;
+}
+
+nav button::after {
+    content: '';
+    display:block;
+    position: absolute;
+    width: 100%;
+    height:0%;
+    bottom:0;
+    left:0;
     background-color: rgb(var(--dark-green));
+    transition: .2s;
+    z-index: -1;
+}
+
+nav button.active::after {
+    content: '';
+    height:100%;
+}
+
+nav button.active {
     color:rgb(var(--white));
 }
