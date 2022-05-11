@@ -118,5 +118,57 @@ nav button.active {
 
 main {
     flex:auto;
-    border: solid 1px red;
+}
+
+.home-container {
+    display:grid;
+    grid-template-rows: .5fr 1fr .25fr;
+}
+
+/* .home-container img {
+    max-width: 50%;
+} */
+
+.hero {
+    background-color: rgb(var(--mid-green));
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.hero-inner {
+    position: relative;
+    top: 10%;
+    padding:20px;
+    margin: 20px;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-family: var(--header-font);
+    font-weight: normal;
+    font-size: 2.5rem;
+}
+
+
+
+.ice-cream-container {
+    position: relative;
+}
+
+.ice-cream {
+    position: absolute;
+    top: 0;
+    right: 25%;
+    filter: drop-shadow(8px 10px 10px);
+    object-fit: cover;
+    width: 100%;
+    z-index: 0;
+    padding-top:10px;
+}
+
+.kid {
+    max-width:100%;
 }
