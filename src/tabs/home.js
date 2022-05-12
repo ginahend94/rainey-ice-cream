@@ -1,5 +1,6 @@
 import IceCream from '../assets/images/ice-cream-cropped.png';
 import KidWithIceCream from '../assets/images/kid-with-ice-cream.jpg';
+import Sundae from '../assets/images/sundae.png';
 
 export default () => {
     const wrapper = document.createElement('main');
@@ -22,7 +23,7 @@ export default () => {
     slogan.innerHTML = `It's always <span class="highlight">Rainey Season</span>.`;
     const text = document.createElement('p');
     copy.appendChild(text);
-    text.textContent = 'Something about rewards and birthdays. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae sed ratione facilis, reiciendis, nihil consequuntur quia non debitis, perferendis nostrum fugiat. Quia dolores, quis id ipsam maxime exercitationem corrupti iure!';
+    text.textContent = 'Rack up points, earn rewards, and get free ice cream on your birthday! Get all this and more when you join the Rainey Days Club.';
     const iceCreamContainer = document.createElement('div');
     hero.appendChild(iceCreamContainer);
     iceCreamContainer.classList.add('ice-cream-container');
@@ -37,7 +38,21 @@ export default () => {
 
     // AD
     const adContainer = document.createElement('div');
-
+    wrapper.appendChild(adContainer);
+    adContainer.classList.add('ad-container');
+    const sundae = new Image();
+    sundae.src = Sundae;
+    sundae.classList.add('sundae');
+    adContainer.appendChild(sundae);
+    const adCopyContainer = document.createElement('div');
+    adContainer.appendChild(adCopyContainer);
+    const adHeader = document.createElement('h2');
+    adCopyContainer.appendChild(adHeader);
+    adHeader.innerHTML = 'Try our new <span class="highlight">Triple Chocolate Sundae</span>!';
+    const adCopy = document.createElement('p');
+    adCopy.classList.add('ad-copy');
+    adCopyContainer.appendChild(adCopy);
+    adCopy.textContent = 'Dark chocolate, milk chocolate, and white chocolate ice cream, served with a crispy wafer and hot fudge. Try it today!';
 
     // CHARITY
     const charityContainer = document.createElement('div');
@@ -52,18 +67,21 @@ export default () => {
     charityCopy.classList.add('charity-copy');
     const charityHeadline = document.createElement('h2');
     charityCopy.appendChild(charityHeadline);
-    charityHeadline.textContent = 'Rainey\'s is bringing the sunshine';
+    charityHeadline.textContent = 'Rainey is bringing the sunshine.';
     const charityParagraph = document.createElement('p');
     charityCopy.appendChild(charityParagraph);
-    charityParagraph.textContent = `Rainey Ice Cream is partnering with St. Ipsum Children's Hospital. Integer scelerisque ipsum sed neque pretium mattis. Nunc varius felis ut dui consectetur rutrum. Pellentesque egestas nisi leo, eu tincidunt ante vestibulum sit amet. Sed nec bibendum lacus.`;
+    charityParagraph.textContent = `Rainey Ice Cream is partnering with St. Lorem Children's Hospital. Integer scelerisque ipsum sed neque pretium mattis. Nunc varius felis ut dui consectetur rutrum. Pellentesque egestas nisi leo, eu tincidunt ante vestibulum sit amet. Sed nec bibendum lacus.`;
     const charityButton = document.createElement('button');
     charityCopy.appendChild(charityButton);
     charityButton.textContent = 'Find out more';
 
     // MAILING LIST
+    const mailingListWrapper = document.createElement('div');
+    wrapper.appendChild(mailingListWrapper);
+    mailingListWrapper.classList.add('mailing-list-wrapper');
     const mailingListContainer = document.createElement('div');
     mailingListContainer.classList.add('mailing-list-container');
-    wrapper.appendChild(mailingListContainer);
+    mailingListWrapper.appendChild(mailingListContainer);
     const mailingListParagraph = document.createElement('p');
     mailingListContainer.appendChild(mailingListParagraph);
     mailingListParagraph.textContent = `Join our mailing list for exclusive deals, offers, and rewards!`;
@@ -71,6 +89,7 @@ export default () => {
     mailingListContainer.appendChild(emailInput);
     emailInput.classList.add('email-input');
     emailInput.placeholder = 'your.email@example.com';
+    emailInput.type = 'email';
     const emailSubmit = document.createElement('button');
     emailSubmit.classList.add('email-submit');
     mailingListContainer.appendChild(emailSubmit);

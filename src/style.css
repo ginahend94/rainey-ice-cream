@@ -6,6 +6,13 @@
 	--old-mid-green: 164, 195, 178;
 	--light-green: 204, 227, 222;
 	--mid-green: 204, 227, 222;
+    /* --black:4, 7, 16;
+    --light-black: 7, 13, 32;
+	--white: 200, 209, 249;
+	--dark-green: 28, 49, 128;
+	--old-mid-green: 55, 98, 255;
+	--light-green: 128, 154, 252;
+	--mid-green: 128, 154, 252; */
     --header-font: 'Oleo Swash';
     --body-font: 'Quicksand';
 }
@@ -35,8 +42,12 @@ body {
     padding: 0;
 }
 
+img {
+    pointer-events: none;
+}
+
 .wrapper {
-    max-width:1200px;
+    max-width:1400px;
     min-height:100vh;
     margin:auto;
     display: flex;
@@ -139,17 +150,27 @@ main button:active {
 }
 
 .hero {
-    background-color: rgb(var(--mid-green));
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* background-color: rgb(var(--mid-green)); */
+    background-color: rgb(var(--dark-green));
+    color: rgb(var(--white)); /*new*/
+    /* display: grid; */
+    /* grid-template-columns: repeat(2, 1fr); */
+    display: flex;
     position: relative;
+    overflow: hidden;
+    justify-content: end;
 }
 
 
 .hero-inner {
+    font-size: 1.3rem;
+    max-width: 45ch;
+    width: max-content;
+    min-height:500px;
     padding:20px;
     margin: 40px;
     z-index: 1;
+    justify-self: center;
 }
 
 .hero-inner p:first-child {
@@ -159,48 +180,76 @@ main button:active {
 }
 
 .hero-inner p:last-child {
+    max-width: 35ch;
     padding: 10px;
-    box-shadow: 5px 5px 5px rgb(var(--dark-green));
+    /* box-shadow: 5px 5px 5px rgb(var(--dark-green));
+    background-color: rgba(var(--white),1); */
+    box-shadow: 5px 5px 5px rgb(var(--black));
     background-color: rgba(var(--white),1);
+    color: rgb(var(--black));
 }
 
 .hero h2 {
     font-family: var(--header-font);
     font-weight: normal;
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .hero button {
-    background-color: rgb(var(--light-black));
-    color: rgb(var(--white));
+    /* background-color: rgb(var(--light-black));
+    color: rgb(var(--white)); */
+    background-color: rgb(var(--light-green));
+    color: rgb(var(--black));
 }
 
 .highlight {
-	text-shadow: 0.5ch 0.5ch 5px rgb(var(--dark-green));
+	/* text-shadow: 0.5ch 0.5ch 5px rgb(var(--dark-green)); */
+	text-shadow: 0.5ch 0.5ch 5px rgba(var(--black),.75);
 }
 
 .ice-cream-container {
     position: relative;
-    overflow-y: hidden;
-    overflow-x: visible;
+    min-width: 350px;
+    flex:auto;
+    bottom:0;
 }
 
 .ice-cream {
     position: absolute;
     top: 0;
+    /* left:0; */
     right: 25%;
-    filter: drop-shadow(8px 10px 7.5px rgb(var(--dark-green)));
+    /* filter: drop-shadow(8px 10px 7.5px rgb(var(--dark-green))); */
+    filter: drop-shadow(8px 10px 7.5px rgb(var(--black)));
     object-fit: cover;
     width: 100%;
+    min-height: 580px;
     z-index: 0;
     padding-top:10px;
+}
+
+.ad-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sundae {
+    height:150px;
+    position: relative;
+    filter: drop-shadow(8px 10px 7.5px rgba(var(--black),.5));
 }
 
 .charity-container {
     background-color: rgb(var(--light-black));
     color:rgb(var(--white));
     display: flex;
-} 
+}
+
+.charity-container button {
+    color: rgb(var(--black));
+    background-color: rgb(var(--white));
+}
 
 .kid {
     max-width: 50%;
@@ -208,9 +257,58 @@ main button:active {
 }
 
 .charity-copy {
-    border: solid 1px;
     padding: 20px;
     margin:10px;
     width: 75%;
-    /* position: absolute; */
+    object-fit: contain;
 }
+
+.mailing-list-wrapper {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(var(--old-mid-green));
+    padding: 50px;
+}
+
+.mailing-list-container {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.mailing-list-container p {
+    font-weight:bold;
+    font-size: 1.2rem;
+}
+
+.email-input {
+    padding:10px;
+    text-align: center;
+    width: minmax(50%, 80%);
+}
+
+.email-input:focus {
+    outline: red;
+}
+
+.email-submit {
+    border-radius: 0;
+    text-transform: uppercase;
+    background-color: rgb(var(--light-black));
+    color: rgb(var(--white));
+}
+.email-submit:hover {
+    background-color: rgb(var(--dark-green));
+    translate: none;
+    box-shadow: none;
+}
+.email-submit:active {
+    background-color: rgb(var(--light-black));
+}
+
+/* 
+to do:
+Fix scaling of text box 
+*/
