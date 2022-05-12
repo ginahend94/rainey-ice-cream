@@ -39,6 +39,7 @@ export default () => {
 
     const links = document.createElement('div');
     footer.appendChild(links);
+    links.classList.add('links');
     const linksArray = [
         {
             text: 'Contact',

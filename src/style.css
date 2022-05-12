@@ -52,7 +52,6 @@ img {
     margin:auto;
     display: flex;
     flex-direction: column;
-    padding: 20px;
 }
 
 header {
@@ -287,11 +286,10 @@ main button:active {
     padding:10px;
     text-align: center;
     width: minmax(50%, 80%);
+    border-radius: 0;
+    border: solid 1px rgb(var(--light-black));
 }
 
-.email-input:focus {
-    outline: red;
-}
 
 .email-submit {
     border-radius: 0;
@@ -308,3 +306,29 @@ main button:active {
     background-color: rgb(var(--light-black));
 }
 
+footer {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap:20px
+}
+
+.socials, .links {
+    display: flex;
+    justify-content: center;
+    gap:20px;
+}
+
+footer a {
+    color:inherit;
+    text-decoration: none;
+    transition: .2s;
+}
+
+footer a:hover {
+    opacity: .8;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
