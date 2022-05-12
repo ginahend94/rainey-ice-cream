@@ -35,6 +35,10 @@ export default () => {
     heroTextContainer.appendChild(button);
     button.textContent = 'Join the Rainey Days Club';
 
+    // AD
+    const adContainer = document.createElement('div');
+
+
     // CHARITY
     const charityContainer = document.createElement('div');
     charityContainer.classList.add('charity-container');
@@ -45,13 +49,17 @@ export default () => {
     kid.classList.add('kid');
     const charityCopy = document.createElement('div');
     charityContainer.appendChild(charityCopy);
+    charityCopy.classList.add('charity-copy');
     const charityHeadline = document.createElement('h2');
     charityCopy.appendChild(charityHeadline);
     charityHeadline.textContent = 'Rainey\'s is bringing the sunshine';
     const charityParagraph = document.createElement('p');
     charityCopy.appendChild(charityParagraph);
     charityParagraph.textContent = `Rainey Ice Cream is partnering with St. Ipsum Children's Hospital. Integer scelerisque ipsum sed neque pretium mattis. Nunc varius felis ut dui consectetur rutrum. Pellentesque egestas nisi leo, eu tincidunt ante vestibulum sit amet. Sed nec bibendum lacus.`;
-    
+    const charityButton = document.createElement('button');
+    charityCopy.appendChild(charityButton);
+    charityButton.textContent = 'Find out more';
+
     // MAILING LIST
     const mailingListContainer = document.createElement('div');
     mailingListContainer.classList.add('mailing-list-container');

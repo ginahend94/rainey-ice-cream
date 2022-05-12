@@ -18,6 +18,7 @@ const page = () => {
 
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');
+    
     wrapper.appendChild(Header.header);
     Header.navButtons.forEach(button => {
         button.addEventListener('click', switchTab);

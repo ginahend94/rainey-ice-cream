@@ -120,55 +120,97 @@ main {
     flex:auto;
 }
 
-.home-container {
-    display:grid;
-    grid-template-rows: .5fr 1fr .25fr;
+main button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
 }
 
-/* .home-container img {
-    max-width: 50%;
-} */
+main button:hover {
+    translate: -3px -3px;
+    box-shadow: 3px 3px 10px rgba(var(--black), .5);
+}
+
+main button:active {
+    translate: 0px 0px;
+    box-shadow: none;
+}
 
 .hero {
     background-color: rgb(var(--mid-green));
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     position: relative;
-    overflow: hidden;
 }
 
 
 .hero-inner {
-    position: relative;
-    top: 10%;
     padding:20px;
-    margin: 20px;
+    margin: 40px;
     z-index: 1;
+}
+
+.hero-inner p:first-child {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+}
+
+.hero-inner p:last-child {
+    padding: 10px;
+    box-shadow: 5px 5px 5px rgb(var(--dark-green));
+    background-color: rgba(var(--white),1);
 }
 
 .hero h2 {
     font-family: var(--header-font);
     font-weight: normal;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
+.hero button {
+    background-color: rgb(var(--light-black));
+    color: rgb(var(--white));
+}
 
+.highlight {
+	text-shadow: 0.5ch 0.5ch 5px rgb(var(--dark-green));
+}
 
 .ice-cream-container {
     position: relative;
+    overflow-y: hidden;
+    overflow-x: visible;
 }
 
 .ice-cream {
     position: absolute;
     top: 0;
     right: 25%;
-    filter: drop-shadow(8px 10px 10px);
+    filter: drop-shadow(8px 10px 7.5px rgb(var(--dark-green)));
     object-fit: cover;
     width: 100%;
     z-index: 0;
     padding-top:10px;
 }
 
+.charity-container {
+    background-color: rgb(var(--light-black));
+    color:rgb(var(--white));
+    display: flex;
+} 
+
 .kid {
-    max-width:100%;
+    max-width: 50%;
+    object-fit: cover;
+}
+
+.charity-copy {
+    border: solid 1px;
+    padding: 20px;
+    margin:10px;
+    width: 75%;
+    /* position: absolute; */
 }
