@@ -70,7 +70,7 @@ export default () => {
     charityHeadline.textContent = 'Rainey is bringing the sunshine.';
     const charityParagraph = document.createElement('p');
     charityCopy.appendChild(charityParagraph);
-    charityParagraph.textContent = `Rainey Ice Cream is partnering with St. Lorem Children's Hospital. Integer scelerisque ipsum sed neque pretium mattis. Nunc varius felis ut dui consectetur rutrum. Pellentesque egestas nisi leo, eu tincidunt ante vestibulum sit amet. Sed nec bibendum lacus.`;
+    charityParagraph.textContent = `Rainey Ice Cream is partnering with St. Lorem Children's Hospital. We will donate of proceeds to help fight childhood diseases. Click the link before to find out how you can help.`;
     const charityButton = document.createElement('button');
     charityCopy.appendChild(charityButton);
     charityButton.textContent = 'Find out more';

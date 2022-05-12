@@ -183,7 +183,7 @@ main button:active {
     padding: 10px;
     /* box-shadow: 5px 5px 5px rgb(var(--dark-green));
     background-color: rgba(var(--white),1); */
-    box-shadow: 5px 5px 5px rgb(var(--black));
+    box-shadow: 5px 5px 5px rgba(var(--black),.5);
     background-color: rgba(var(--white),1);
     color: rgb(var(--black));
 }
@@ -320,13 +320,13 @@ footer {
 }
 
 footer a {
-    color:inherit;
+    color:rgb(var(--black));
     text-decoration: none;
     transition: .2s;
 }
 
 footer a:hover {
-    opacity: .8;
+    color: rgb(var(--light-black));
 }
 
 .links a:hover {
