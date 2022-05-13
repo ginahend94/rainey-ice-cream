@@ -380,8 +380,43 @@ main button:active {
 }
 
 
+.about-container {
+    display: flex;
+    margin: 40px;
+    font-size: 1.2rem;
+    gap:40px;
+}
 
+.text-container {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
 
+.text-container p {
+    margin: 0px;
+}
+
+.photo-container {
+    /* background-image: url('./assets/images/eileen_rainey.jpg');
+    background-size: contain; */
+}
+
+.photo-container img {
+    height: 250px;
+    border: solid 10px rgb(var(--dark-green));
+    /* border-top: solid 15px rgb(var(--dark-green));
+    border-bottom: solid 15px rgb(var(--dark-green));
+    border-left: solid 15px rgb(var(--light-black));
+    border-right: solid 15px rgb(var(--light-black)); */
+}
+
+.drop-cap {
+    font-size: 2em;
+    font-family: var(--header-font);
+    float: left;
+    padding-right:.25ch;
+}
 
 
 footer {
