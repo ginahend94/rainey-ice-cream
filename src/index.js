@@ -9,8 +9,8 @@ import menu from './tabs/menu.js'; //TEST
 const page = () => {
 
     const footer = Footer();
-    // let main = home(); // Uncomment later
-    let main = menu(); //TEST
+    let main = home();
+    // let main = menu(); //TEST
 
     const switchTab = e => {
         wrapper.removeChild(main);
