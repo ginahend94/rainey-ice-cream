@@ -2,7 +2,7 @@ import header from '../elements/header.js';
 import home from '../tabs/home.js';
 import menu from '../tabs/menu.js';
 import about from '../tabs/about.js';
-import order from '../tabs/order.js';
+import raineyDays from '../tabs/rainey days.js';
 import locations from '../tabs/locations.js';
 
 export default function selectTab(e) {
@@ -20,8 +20,8 @@ export default function selectTab(e) {
         case 'about':
             main = about();
             break;
-        case 'order':
-            main = order();
+        case 'rainey days':
+            main = raineyDays();
             break;
         case 'locations':
             main = locations();

@@ -17,7 +17,8 @@ export default (() => {
     header.appendChild(nav);
     const ul = document.createElement('ul');
     nav.appendChild(ul);
-    const navLinks = ['home', 'menu', 'about', 'order', 'locations'];
+    // const navLinks = ['home', 'menu', 'about', 'order', 'locations'];
+    const navLinks = ['home', 'menu', 'about', 'rainey days', 'locations'];
     navLinks.forEach(link => {
         let li = document.createElement('li');
         let button = document.createElement('button');
@@ -25,7 +26,7 @@ export default (() => {
         button.dataset.target = link;
         ul.appendChild(li);
         button.textContent = link;
-        li.classList.add(link);
+        li.classList.add(link.replace(' ', '-'));
         //test
         if (link == 'home') {
             button.classList.add('active')

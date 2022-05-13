@@ -4,13 +4,13 @@ import './style.css';
 import selectTab from './functions/selectTab.js';
 import home from './tabs/home.js';
 import Footer from './elements/footer.js';
-import about from './tabs/about.js'; //TEST
+import raineyDays from './tabs/rainey days'; //TEST
 
 const page = () => {
 
     const footer = Footer();
-    // let main = home();
-    let main = about(); //TEST
+    let main = raineyDays();
+    // let main = about(); //TEST
 
     const switchTab = e => {
         wrapper.removeChild(main);
