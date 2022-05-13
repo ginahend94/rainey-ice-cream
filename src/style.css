@@ -311,7 +311,6 @@ main button:active {
 }
 
 .page-wrapper h2 {
-    /* font-family: var(--header-font); */
     color: rgb(var(--white));
     font-size: 2.5rem;
 }
@@ -399,18 +398,9 @@ main button:active {
     max-width: 50ch;
 }
 
-.photo-container {
-    /* background-image: url('./assets/images/eileen_rainey.jpg');
-    background-size: contain; */
-}
-
 .photo-container img {
     height: 250px;
     border: solid 10px rgb(var(--dark-green));
-    /* border-top: solid 15px rgb(var(--dark-green));
-    border-bottom: solid 15px rgb(var(--dark-green));
-    border-left: solid 15px rgb(var(--light-black));
-    border-right: solid 15px rgb(var(--light-black)); */
 }
 
 .drop-cap {
@@ -419,6 +409,9 @@ main button:active {
     float: left;
     padding-right:.25ch;
 }
+
+
+
 
 
 footer {
