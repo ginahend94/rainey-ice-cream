@@ -385,6 +385,7 @@ main button:active {
     margin: 40px;
     font-size: 1.2rem;
     gap:40px;
+    justify-content: center;
 }
 
 .text-container {
@@ -395,6 +396,7 @@ main button:active {
 
 .text-container p {
     margin: 0px;
+    max-width: 50ch;
 }
 
 .photo-container {
