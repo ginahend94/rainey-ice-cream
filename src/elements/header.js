@@ -1,4 +1,4 @@
-import Logo from '../assets/images/rainey logo outline.png';
+import Logo from '../assets/images/rainey logo est.png';
 
 export default (() => {
     const header = document.createElement('header');

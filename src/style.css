@@ -306,11 +306,11 @@ main button:active {
     background-color: rgb(var(--light-black));
 }
 
-.menu-wrapper header {
+.page-wrapper header {
     background-color: rgb(var(--dark-green));
 }
 
-.menu-wrapper h2 {
+.page-wrapper h2 {
     /* font-family: var(--header-font); */
     color: rgb(var(--white));
     font-size: 2.5rem;
@@ -378,6 +378,9 @@ main button:active {
     text-align: center;
     padding: 10px;
 }
+
+
+
 
 
 

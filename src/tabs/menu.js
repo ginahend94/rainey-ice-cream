@@ -10,6 +10,7 @@ import sundae from '../assets/images/sundae.png'
 export default () => {
     const wrapper = document.createElement('main');
     wrapper.classList.add('menu-wrapper');
+    wrapper.classList.add('page-wrapper');
     const header = document.createElement('header');
     wrapper.appendChild(header);
     const h2 = document.createElement('h2');
