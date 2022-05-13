@@ -104,7 +104,7 @@ nav button:active {
     background-color: rgb(var(--old-mid-green));
 }
 
-nav button::after {
+nav button::before {
     content: '';
     display:block;
     position: absolute;
@@ -117,13 +117,17 @@ nav button::after {
     z-index: -1;
 }
 
-nav button.active::after {
+nav button.active::before {
     content: '';
     height:100%;
 }
 
 nav button.active {
     color:rgb(var(--white));
+}
+
+.rainey-days button::after {
+    content:'™';
 }
 
 main {

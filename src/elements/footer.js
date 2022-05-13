@@ -65,7 +65,7 @@ export default () => {
     })
     const copyright = document.createElement('span');
     links.appendChild(copyright);
-    copyright.innerHTML = `Copyright &copy; 2022 <span title="Gina Henderson">Rainey Ice Cream Inc.</span>`
+    copyright.innerHTML = `Copyright &copy; 2022 <span title="Not a real company">Rainey Ice Cream Inc.</span> All rights reserved.`
 
     return footer;
 }
