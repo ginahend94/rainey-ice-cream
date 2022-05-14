@@ -4,13 +4,14 @@ import menu from '../tabs/menu.js';
 import about from '../tabs/about.js';
 import raineyDays from '../tabs/rainey days.js';
 import locations from '../tabs/locations.js';
+import titleCase from './titleCase.js';
 
 export default function selectTab(e, path) {
     header.navButtons.forEach(a => a.classList.remove('active'));
     if (e.type == 'click') {
         e.target.classList.add('active');
     } else {
-        if (path) header.navButtons.find(a => a.dataset.target == path.replace('-', ' ')).classList.add('active');
+        if (path) header.navButtons.find(a => a.dataset.target == path.replace(/-/g, ' ')).classList.add('active');
         else header.navButtons.find(a => a.dataset.target == '').classList.add('active')
     }
     let main;
@@ -25,8 +26,8 @@ export default function selectTab(e, path) {
         case 'about':
             main = about();
             break;
-        case 'rainey-days':
-        case 'rainey days':
+        case 'rainey-days-club':
+        case 'rainey days club':
             main = raineyDays();
             break;
         case 'locations':
@@ -37,10 +38,9 @@ export default function selectTab(e, path) {
             break;
     }
     // omg this is so hack T.T
-    if (!history.state && history.state !== '' || history.state.page != path.replace(' ', '-')) {
-        history.pushState({page:`${path.replace(' ', '-')}`}, '', `${path.replace(' ', '-')}`);
+    if (!history.state && history.state !== '' || history.state.page != path.replace(/ /g, '-')) {
+        history.pushState({page:`${path.replace(/ /g, '-')}`}, '', `${path.replace(/ /g, '-')}`);
     }
-    document.title = `${() => { path.charAt(0).toUpperCase() + path.slice(1) }
-} | Rainey Ice Cream`;
+    document.title = `${titleCase(path)}Rainey Ice Cream`;
     return main;
 }
