@@ -1,11 +1,11 @@
 :root {
     --black: 35, 46, 41;
     --light-black: 66, 87, 83;
-	--white: 234, 244, 244;
-	--dark-green: 107, 144, 128;
-	--old-mid-green: 164, 195, 178;
-	--light-green: 204, 227, 222;
-	--mid-green: 204, 227, 222;
+    --white: 234, 244, 244;
+    --dark-green: 107, 144, 128;
+    --old-mid-green: 164, 195, 178;
+    --light-green: 204, 227, 222;
+    --mid-green: 204, 227, 222;
     /* --black:4, 7, 16;
     --light-black: 7, 13, 32;
 	--white: 200, 209, 249;
@@ -22,11 +22,13 @@
     src: url('./fonts/OleoScriptSwashCaps-Regular.ttf');
     font-weight: normal;
 }
+
 @font-face {
     font-family: 'Oleo Swash';
     src: url('./fonts/OleoScriptSwashCaps-Bold.ttf');
     font-weight: bold;
 }
+
 @font-face {
     font-family: 'Quicksand';
     src: url('./fonts/Quicksand-VariableFont_wght.ttf');
@@ -36,9 +38,14 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+    margin-right: calc(-1 * (100vw - 100%));
+}
+
 body {
     font-family: var(--body-font);
-    color:rgb(var(--light-black));
+    color: rgb(var(--light-black));
     padding: 0;
 }
 
@@ -47,9 +54,9 @@ img {
 }
 
 .wrapper {
-    max-width:1400px;
-    min-height:100vh;
-    margin:auto;
+    max-width: 1400px;
+    min-height: 100vh;
+    margin: auto;
     display: flex;
     flex-direction: column;
 }
@@ -63,7 +70,7 @@ header {
 }
 
 header img {
-    width:200px;
+    width: 200px;
 }
 
 nav {
@@ -72,7 +79,7 @@ nav {
 
 nav ul {
     padding: 0;
-    margin:20px 0 0;
+    margin: 20px 0 0;
     list-style: none;
     display: flex;
     justify-content: space-evenly;
@@ -80,19 +87,19 @@ nav ul {
 }
 
 nav li {
-    flex:auto;
+    flex: auto;
 }
 
 nav button {
     font-family: inherit;
-    color:inherit;
+    color: inherit;
     text-transform: uppercase;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     padding: 10px;
     cursor: pointer;
-    transition:.2s;
-    border:none;
+    transition: .2s;
+    border: none;
     background-color: transparent;
     position: relative;
     z-index: 9;
@@ -108,12 +115,12 @@ nav button:active {
 
 nav button::before {
     content: '';
-    display:block;
+    display: block;
     position: absolute;
     width: 100%;
-    height:0%;
-    bottom:0;
-    left:0;
+    height: 0%;
+    bottom: 0;
+    left: 0;
     background-color: rgb(var(--dark-green));
     transition: .2s;
     z-index: -1;
@@ -121,22 +128,22 @@ nav button::before {
 
 nav button.active::before {
     content: '';
-    height:100%;
+    height: 100%;
 }
 
 nav button.active {
-    color:rgb(var(--white));
+    color: rgb(var(--white));
 }
 
 .rainey-days button::after {
-    content:'™';
+    content: '™';
 }
 
 
 /* MAIN  */
 
 main {
-    flex:auto;
+    flex: auto;
 }
 
 main button {
@@ -173,8 +180,8 @@ main button:active {
     font-size: 1.3rem;
     max-width: 45ch;
     width: max-content;
-    min-height:500px;
-    padding:20px;
+    min-height: 500px;
+    padding: 20px;
     margin: 40px;
     z-index: 1;
     justify-self: center;
@@ -189,8 +196,8 @@ main button:active {
 .hero-inner p:last-child {
     max-width: 35ch;
     padding: 10px;
-    box-shadow: 5px 5px 5px rgba(var(--black),.5);
-    background-color: rgba(var(--white),1);
+    box-shadow: 5px 5px 5px rgba(var(--black), .5);
+    background-color: rgba(var(--white), 1);
     color: rgb(var(--black));
 }
 
@@ -206,14 +213,14 @@ main button:active {
 }
 
 .highlight {
-	text-shadow: 0.5ch 0.5ch 5px rgba(var(--black),.75);
+    text-shadow: 0.5ch 0.5ch 5px rgba(var(--black), .75);
 }
 
 .ice-cream-container {
     position: relative;
     min-width: 350px;
-    flex:auto;
-    bottom:0;
+    flex: auto;
+    bottom: 0;
 }
 
 .ice-cream {
@@ -225,7 +232,7 @@ main button:active {
     width: 100%;
     min-height: 580px;
     z-index: 0;
-    padding-top:10px;
+    padding-top: 10px;
 }
 
 .ad-container {
@@ -235,14 +242,14 @@ main button:active {
 }
 
 .sundae {
-    height:150px;
+    height: 150px;
     position: relative;
-    filter: drop-shadow(8px 10px 7.5px rgba(var(--black),.5));
+    filter: drop-shadow(8px 10px 7.5px rgba(var(--black), .5));
 }
 
 .charity-container {
     background-color: rgb(var(--light-black));
-    color:rgb(var(--white));
+    color: rgb(var(--white));
     display: flex;
 }
 
@@ -258,7 +265,7 @@ main button:active {
 
 .charity-copy {
     padding: 20px;
-    margin:10px;
+    margin: 10px;
     width: 75%;
     object-fit: contain;
 }
@@ -279,12 +286,12 @@ main button:active {
 }
 
 .mailing-list-container p {
-    font-weight:bold;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
 .email-input {
-    padding:10px;
+    padding: 10px;
     text-align: center;
     width: minmax(50%, 80%);
     border-radius: 0;
@@ -298,11 +305,13 @@ main button:active {
     background-color: rgb(var(--light-black));
     color: rgb(var(--white));
 }
+
 .email-submit:hover {
     background-color: rgb(var(--dark-green));
     translate: none;
     box-shadow: none;
 }
+
 .email-submit:active {
     background-color: rgb(var(--light-black));
 }
@@ -322,7 +331,7 @@ main button:active {
     margin-top: 50px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap:30px;
+    gap: 30px;
     justify-items: center;
     padding: 20px;
 }
@@ -334,15 +343,15 @@ main button:active {
 
 .flavor-container:hover {
     transform: scale(1.05);
-    box-shadow: 10px 10px 20px rgba(var(--black),.5);
+    box-shadow: 10px 10px 20px rgba(var(--black), .5);
 }
 
 .card-container img {
-    width:250px;
+    width: 250px;
 }
 
 .pic-container {
-    height:250px;
+    height: 250px;
     width: 250px;
     display: flex;
     align-items: center;
@@ -352,7 +361,7 @@ main button:active {
 .sundae-pic::before {
     content: 'NEW';
     position: absolute;
-    top:10px;
+    top: 10px;
     width: 70px;
     height: 30px;
     background-color: rgb(var(--light-black));
@@ -370,8 +379,8 @@ main button:active {
 }
 
 .sundae-pic .pic-container {
-    background: rgb(168,168,213);
-    background: radial-gradient(circle, rgb(179, 179, 218) 31%, rgba(143,143,182,1) 100%);
+    background: rgb(168, 168, 213);
+    background: radial-gradient(circle, rgb(179, 179, 218) 31%, rgba(143, 143, 182, 1) 100%);
 }
 
 .card-container figcaption {
@@ -388,14 +397,14 @@ main button:active {
     display: flex;
     margin: 40px;
     font-size: 1.2rem;
-    gap:40px;
+    gap: 40px;
     justify-content: center;
 }
 
 .text-container {
     display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
 }
 
 .text-container p {
@@ -405,9 +414,11 @@ main button:active {
 
 .photo-container {
     text-align: right;
+    /* width: 250px; */
 }
 
 .photo-container img {
+    width: 250px;
     height: 250px;
     border: solid 10px rgb(var(--dark-green));
     position: relative;
@@ -416,13 +427,14 @@ main button:active {
 .photo-container::after {
     content: 'Eileen Rainey';
     font-family: var(--header-font);
+    display: block;
 }
 
 .drop-cap {
     font-size: 2em;
     font-family: var(--header-font);
     float: left;
-    padding-right:.25ch;
+    padding-right: .25ch;
 }
 
 /* RAINEY DAYS  */
@@ -440,12 +452,12 @@ main button:active {
     display: flex;
     flex-direction: column-reverse;
     align-items: start;
-    gap:5px;
-    margin:15px 0;
+    gap: 5px;
+    margin: 15px 0;
 }
 
 .sign-up-form input:not([type=checkbox]) {
-    width:50%;
+    width: 50%;
 }
 
 .sign-up-form .checkbox {
@@ -465,17 +477,18 @@ footer {
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    gap:20px
+    gap: 20px
 }
 
-.socials, .links {
+.socials,
+.links {
     display: flex;
     justify-content: center;
-    gap:20px;
+    gap: 20px;
 }
 
 footer a {
-    color:rgb(var(--black));
+    color: rgb(var(--black));
     text-decoration: none;
     transition: .2s;
 }
