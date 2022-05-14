@@ -1,4 +1,3 @@
 style header img alt
 create locations page
-add favicon
-Title case function
+create modal
