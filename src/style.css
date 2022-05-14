@@ -72,6 +72,16 @@ header {
 header img {
     width: 200px;
 }
+header a {
+    text-decoration: none;
+    color: rgb(var(--dark-green));
+    text-shadow: 3px 3px rgb(var(--light-green));
+    letter-spacing: -3px;
+}
+header img {
+    font-size: 3.5rem;
+    font-family: var(--header-font);
+}
 
 nav {
     width: 100%;
