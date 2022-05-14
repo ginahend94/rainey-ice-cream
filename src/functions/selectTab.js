@@ -7,10 +7,11 @@ import locations from '../tabs/locations.js';
 
 export default function selectTab(e) {
     const button = e.target;
+    const target = button.dataset.target;
     let main;
     header.navButtons.forEach(a => a.classList.remove('active'));
     button.classList.add('active');
-    switch (button.dataset.target) {
+    switch (target) {
         case 'home':
             main = home();
             break;
@@ -30,5 +31,6 @@ export default function selectTab(e) {
             main = home();
             break;
     }
+    history.pushState({pageID: target}, target, `${target.replace(' ', '-')}`)
     return main;
 }
