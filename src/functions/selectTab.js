@@ -5,12 +5,17 @@ import about from '../tabs/about.js';
 import raineyDays from '../tabs/rainey days.js';
 import locations from '../tabs/locations.js';
 
-export default function selectTab(e) {
-    const button = e.target;
-    let target = button.dataset.target;
-    let main;
+export default function selectTab(e, path) {
+    console.log(e)
+    // path = path || e.target.dataset.target;
     header.navButtons.forEach(a => a.classList.remove('active'));
-    button.classList.add('active');
+    if (e.type == 'click') {
+        e.target.classList.add('active');
+    } else {
+        console.log(header.navButtons)
+    }
+    let target = path;
+    let main;
     switch (target) {
         case 'home':
             main = home();
@@ -21,6 +26,7 @@ export default function selectTab(e) {
         case 'about':
             main = about();
             break;
+        case 'rainey-days':
         case 'rainey days':
             main = raineyDays();
             break;
@@ -31,6 +37,7 @@ export default function selectTab(e) {
             main = home();
             break;
     }
+    console.log(target)
     history.pushState({}, '', `${target.replace(' ', '-')}`);
     document.title = `${target.charAt(0).toUpperCase() + target.slice(1)} | Rainey Ice Cream`;
     return main;
