@@ -37,9 +37,9 @@ export default function selectTab(e, path) {
             main = home();
             break;
     }
-    // omg this is so hack T.T
-    if (!history.state && history.state !== '' || history.state.page != path.replace(/ /g, '-')) {
-        history.pushState({page:`${path.replace(/ /g, '-')}`}, '', `${path.replace(/ /g, '-')}`);
+    // omg this is so hacky T.T
+    if (!history.state && history.state !== '' || history.state.page != '/' + path.replace(/ /g, '-')) {
+        history.pushState({page:`/${path.replace(/ /g, '-')}`}, '', `/${path.replace(/ /g, '-')}`);
     }
     document.title = `${titleCase(path)}Rainey Ice Cream`;
     return main;
