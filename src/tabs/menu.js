@@ -56,7 +56,7 @@ export default () => {
             pic: cookiesAndCreamPic,
         },
         {
-            name: 'strawberry swirl',
+            name: 'strawberry sorbet swirl',
             pic: strawberrySwirlPic,
         },
         {
@@ -64,7 +64,7 @@ export default () => {
             pic: cheesecakePic,
         },
         {
-            name: 'caramel',
+            name: 'caramel ripple',
             pic: caramelPic,
         },
         {

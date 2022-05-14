@@ -1,5 +1,2 @@
-style header img alt
 create locations page
-add favicon
-set up url routing
- - refactor switch tabs logic >.<
+create modal

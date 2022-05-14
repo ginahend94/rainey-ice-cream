@@ -6,13 +6,6 @@
     --old-mid-green: 164, 195, 178;
     --light-green: 204, 227, 222;
     --mid-green: 204, 227, 222;
-    /* --black:4, 7, 16;
-    --light-black: 7, 13, 32;
-	--white: 200, 209, 249;
-	--dark-green: 28, 49, 128;
-	--old-mid-green: 55, 98, 255;
-	--light-green: 128, 154, 252;
-	--mid-green: 128, 154, 252; */
     --header-font: 'Oleo Swash';
     --body-font: 'Quicksand';
 }
@@ -71,6 +64,16 @@ header {
 
 header img {
     width: 200px;
+}
+header a {
+    text-decoration: none;
+    color: rgb(var(--dark-green));
+    text-shadow: 3px 3px rgb(var(--light-green));
+    letter-spacing: -3px;
+}
+header img {
+    font-size: 3.5rem;
+    font-family: var(--header-font);
 }
 
 nav {

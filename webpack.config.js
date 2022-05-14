@@ -30,6 +30,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Rainey Ice Cream',
+            favicon: './src/assets/images/favicon.ico',
         }),
     ],
     output: {
