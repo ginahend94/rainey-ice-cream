@@ -15,6 +15,7 @@ const page = () => {
         wrapper.removeChild(main);
         main = selectTab(e, path);
         wrapper.insertBefore(main, footer);
+        // history.pushState({}, '', `${path.replace(' ', '-')}`);
     }
 
     const wrapper = document.createElement('div');

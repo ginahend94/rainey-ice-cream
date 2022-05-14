@@ -11,7 +11,7 @@ export default function selectTab(e, path) {
         e.target.classList.add('active');
     } else {
         if (path) header.navButtons.find(a => a.dataset.target == path.replace('-', ' ')).classList.add('active');
-        else header.navButtons.find(a => a.dataset.target == 'home').classList.add('active')
+        else header.navButtons.find(a => a.dataset.target == '').classList.add('active')
     }
     let main;
     switch (path) {
@@ -36,7 +36,10 @@ export default function selectTab(e, path) {
             main = home();
             break;
     }
-    history.pushState({}, '', `${path.replace(' ', '-')}`);
+    // omg this is so hack T.T
+    if (!history.state && history.state !== '' || history.state.page != path.replace(' ', '-')) {
+        history.pushState({page:`${path.replace(' ', '-')}`}, '', `${path.replace(' ', '-')}`);
+    }
     document.title = `${() => { path.charAt(0).toUpperCase() + path.slice(1) }
 } | Rainey Ice Cream`;
     return main;

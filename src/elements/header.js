@@ -29,7 +29,8 @@ export default (() => {
         li.classList.add(link.replace(' ', '-'));
         //test
         if (link == 'home') {
-            button.classList.add('active')
+            button.classList.add('active');
+            button.dataset.target = '';
         }
     });
     const navButtons = Array.from(nav.querySelectorAll('button'));
