@@ -6,17 +6,16 @@ import raineyDays from '../tabs/rainey days.js';
 import locations from '../tabs/locations.js';
 
 export default function selectTab(e, path) {
-    console.log(e)
-    // path = path || e.target.dataset.target;
     header.navButtons.forEach(a => a.classList.remove('active'));
     if (e.type == 'click') {
         e.target.classList.add('active');
     } else {
-        console.log(header.navButtons)
+        if (path) header.navButtons.find(a => a.dataset.target == path.replace('-', ' ')).classList.add('active');
+        else header.navButtons.find(a => a.dataset.target == 'home').classList.add('active')
     }
-    let target = path;
     let main;
-    switch (target) {
+    switch (path) {
+        case undefined:
         case 'home':
             main = home();
             break;
@@ -37,8 +36,8 @@ export default function selectTab(e, path) {
             main = home();
             break;
     }
-    console.log(target)
-    history.pushState({}, '', `${target.replace(' ', '-')}`);
-    document.title = `${target.charAt(0).toUpperCase() + target.slice(1)} | Rainey Ice Cream`;
+    history.pushState({}, '', `${path.replace(' ', '-')}`);
+    document.title = `${() => { path.charAt(0).toUpperCase() + path.slice(1) }
+} | Rainey Ice Cream`;
     return main;
 }

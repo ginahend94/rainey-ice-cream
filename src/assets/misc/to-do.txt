@@ -3,3 +3,4 @@ create locations page
 add favicon
 set up url routing
  - refactor switch tabs logic >.<
+Title case function
