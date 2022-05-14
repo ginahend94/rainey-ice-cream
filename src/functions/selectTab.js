@@ -7,7 +7,7 @@ import locations from '../tabs/locations.js';
 
 export default function selectTab(e) {
     const button = e.target;
-    const target = button.dataset.target;
+    let target = button.dataset.target;
     let main;
     header.navButtons.forEach(a => a.classList.remove('active'));
     button.classList.add('active');
@@ -31,7 +31,7 @@ export default function selectTab(e) {
             main = home();
             break;
     }
-    history.pushState({ pageID: target }, target, `${target.replace(' ', '-')}`);
+    history.pushState({}, '', `${target.replace(' ', '-')}`);
     document.title = `${target.charAt(0).toUpperCase() + target.slice(1)} | Rainey Ice Cream`;
     return main;
 }

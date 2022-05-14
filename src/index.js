@@ -10,13 +10,17 @@ const page = () => {
 
     const footer = Footer();
     let main = locations();
-    // let main = about(); //TEST
+    // let main = home(); //TEST
 
     const switchTab = e => {
         wrapper.removeChild(main);
         main = selectTab(e);
         wrapper.insertBefore(main, footer);
     }
+
+    // window.addEventListener('popstate', e => {
+    //     switchTab(e);
+    // })
 
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');

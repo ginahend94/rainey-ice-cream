@@ -10,7 +10,7 @@ export default (() => {
     header.appendChild(logoLink);
     logoLink.href = '/';
     logoLink.title = "Rainey Ice Cream";
-    logoLink.alt = "Rainey \nIce Cream";
+    logo.alt = "Rainey Ice Cream";
     logoLink.appendChild(logo);
 
     const nav = document.createElement('nav');
