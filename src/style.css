@@ -415,8 +415,37 @@ main button:active {
 }
 
 
+.rainey-days-container {
+    padding: 40px;
+}
 
+.sign-up-form {
+    background-color: rgb(var(--light-green));
+    padding: 20px;
+}
 
+.sign-up-form label {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: start;
+    gap:5px;
+    margin:15px 0;
+}
+
+.sign-up-form input:not([type=checkbox]) {
+    width:50%;
+}
+
+.sign-up-form .checkbox {
+    flex-direction: row;
+    align-items: center;
+    /* gap:10px; */
+}
+
+.sign-up-form button {
+    background-color: rgb(var(--dark-green));
+    color: rgb(var(--white));
+}
 
 footer {
     padding: 40px 20px;

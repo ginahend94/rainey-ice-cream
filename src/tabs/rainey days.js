@@ -35,11 +35,13 @@ export default () => {
 
     const signUpForm = document.createElement('div');
     raineyDaysContainer.appendChild(signUpForm);
+    signUpForm.classList.add('sign-up-form')
     signUpForm.innerHTML = `<h3>Sign Up Today</h3>
     <label><input>Name</label>
     <label><input>Email</label>
     <label><input type="date" max=${eighteenYearsOld()}>Date of Birth</label>
-    <label><input type="checkbox">I am at least 18 years of age and agree to join the Rainey Days Club™.</label>`;
+    <label class="checkbox"><input type="checkbox">I am at least 18 years of age and agree to join the Rainey Days Club™.</label>
+    <button>Sign Up</button>`;
 
     return wrapper;
 }
