@@ -54,6 +54,8 @@ img {
     flex-direction: column;
 }
 
+/* HEADER */
+
 header {
     display: flex;
     flex-direction: column;
@@ -130,6 +132,9 @@ nav button.active {
     content:'™';
 }
 
+
+/* MAIN  */
+
 main {
     flex:auto;
 }
@@ -152,12 +157,11 @@ main button:active {
     box-shadow: none;
 }
 
+/* HOME  */
+
 .hero {
-    /* background-color: rgb(var(--mid-green)); */
     background-color: rgb(var(--dark-green));
-    color: rgb(var(--white)); /*new*/
-    /* display: grid; */
-    /* grid-template-columns: repeat(2, 1fr); */
+    color: rgb(var(--white));
     display: flex;
     position: relative;
     overflow: hidden;
@@ -185,8 +189,6 @@ main button:active {
 .hero-inner p:last-child {
     max-width: 35ch;
     padding: 10px;
-    /* box-shadow: 5px 5px 5px rgb(var(--dark-green));
-    background-color: rgba(var(--white),1); */
     box-shadow: 5px 5px 5px rgba(var(--black),.5);
     background-color: rgba(var(--white),1);
     color: rgb(var(--black));
@@ -199,14 +201,11 @@ main button:active {
 }
 
 .hero button {
-    /* background-color: rgb(var(--light-black));
-    color: rgb(var(--white)); */
     background-color: rgb(var(--light-green));
     color: rgb(var(--black));
 }
 
 .highlight {
-	/* text-shadow: 0.5ch 0.5ch 5px rgb(var(--dark-green)); */
 	text-shadow: 0.5ch 0.5ch 5px rgba(var(--black),.75);
 }
 
@@ -220,9 +219,7 @@ main button:active {
 .ice-cream {
     position: absolute;
     top: 0;
-    /* left:0; */
     right: 25%;
-    /* filter: drop-shadow(8px 10px 7.5px rgb(var(--dark-green))); */
     filter: drop-shadow(8px 10px 7.5px rgb(var(--black)));
     object-fit: cover;
     width: 100%;
@@ -319,6 +316,8 @@ main button:active {
     font-size: 2.5rem;
 }
 
+/* MENU  */
+
 .card-container {
     margin-top: 50px;
     display: grid;
@@ -382,6 +381,8 @@ main button:active {
     padding: 10px;
 }
 
+/* ABOUT  */
+
 
 .about-container {
     display: flex;
@@ -402,9 +403,19 @@ main button:active {
     max-width: 50ch;
 }
 
+.photo-container {
+    text-align: right;
+}
+
 .photo-container img {
     height: 250px;
     border: solid 10px rgb(var(--dark-green));
+    position: relative;
+}
+
+.photo-container::after {
+    content: 'Eileen Rainey';
+    font-family: var(--header-font);
 }
 
 .drop-cap {
@@ -414,6 +425,7 @@ main button:active {
     padding-right:.25ch;
 }
 
+/* RAINEY DAYS  */
 
 .rainey-days-container {
     padding: 40px;
@@ -446,6 +458,8 @@ main button:active {
     background-color: rgb(var(--dark-green));
     color: rgb(var(--white));
 }
+
+/* FOOTER  */
 
 footer {
     padding: 40px 20px;

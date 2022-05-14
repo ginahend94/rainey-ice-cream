@@ -1,5 +1,4 @@
 import Photo from '../assets/images/eileen_rainey.jpg';
-import Frame from '../assets/images/frame.png'
 
 export default () => {
     const wrapper = document.createElement('main');
@@ -13,8 +12,7 @@ export default () => {
 
     const eileen = new Image();
     eileen.src = Photo;
-    const frame = new Image();
-    frame.src = Frame;
+    eileen.classList.add('eileen');
 
     const aboutContainer = document.createElement('div');
     wrapper.appendChild(aboutContainer);

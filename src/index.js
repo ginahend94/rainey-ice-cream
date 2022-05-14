@@ -4,12 +4,12 @@ import './style.css';
 import selectTab from './functions/selectTab.js';
 import home from './tabs/home.js';
 import Footer from './elements/footer.js';
-import raineyDays from './tabs/rainey days'; //TEST
+import locations from './tabs/locations'; //TEST
 
 const page = () => {
 
     const footer = Footer();
-    let main = raineyDays();
+    let main = locations();
     // let main = about(); //TEST
 
     const switchTab = e => {
