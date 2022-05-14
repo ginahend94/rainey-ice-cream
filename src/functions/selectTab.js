@@ -31,6 +31,7 @@ export default function selectTab(e) {
             main = home();
             break;
     }
-    history.pushState({pageID: target}, target, `${target.replace(' ', '-')}`)
+    history.pushState({ pageID: target }, target, `${target.replace(' ', '-')}`);
+    document.title = `${target.charAt(0).toUpperCase() + target.slice(1)} | Rainey Ice Cream`;
     return main;
 }
