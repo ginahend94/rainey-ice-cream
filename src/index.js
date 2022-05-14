@@ -9,7 +9,7 @@ import locations from './tabs/locations'; //TEST
 const page = () => {
 
     const footer = Footer();
-    let main = home();
+    let main = locations();
 
     const switchTab = (e, path) => {
         wrapper.removeChild(main);
