@@ -4,18 +4,17 @@ import './style.css';
 import selectTab from './functions/selectTab.js';
 import home from './tabs/home.js';
 import Footer from './elements/footer.js';
-import locations from './tabs/locations'; //TEST
+// import locations from './tabs/locations'; //TEST
 
 const page = () => {
 
     const footer = Footer();
-    let main = locations();
+    let main = home();
 
     const switchTab = (e, path) => {
         wrapper.removeChild(main);
         main = selectTab(e, path);
         wrapper.insertBefore(main, footer);
-        // history.pushState({}, '', `${path.replace(' ', '-')}`);
     }
 
     const wrapper = document.createElement('div');
