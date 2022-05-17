@@ -4,6 +4,7 @@ import './style.css';
 import selectTab from './functions/selectTab.js';
 import home from './tabs/home.js';
 import Footer from './elements/footer.js';
+import {Modal} from './elements/modal.js';
 
 const page = () => {
 
@@ -26,11 +27,8 @@ const page = () => {
 
     wrapper.appendChild(main);
     wrapper.appendChild(footer);
-
-    window.addEventListener('popstate', e => {
-        const path = window.location.pathname.slice(1);
-        switchTab(e, path)
-    })
+    
+    wrapper.appendChild(Modal.modalWrapper)
 
     return wrapper;
 }

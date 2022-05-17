@@ -1,3 +1,5 @@
+import { Modal } from "../elements/modal";
+
 export default () => {
     const wrapper = document.createElement('main');
     wrapper.classList.add('rainey-days-wrapper');
@@ -40,8 +42,11 @@ export default () => {
     <label><input>Name</label>
     <label><input>Email</label>
     <label><input type="date" max=${eighteenYearsOld()}>Date of Birth</label>
-    <label class="checkbox"><input type="checkbox">I am at least 18 years of age and agree to join the Rainey Days Club™.</label>
-    <button>Sign Up</button>`;
+    <label class="checkbox"><input type="checkbox">I am at least 18 years of age and agree to join the Rainey Days Club™.</label>`;
+    const button = document.createElement('button');
+    signUpForm.appendChild(button)
+    button.textContent = 'Sign Up';
+    button.addEventListener('click', Modal.openModal);
 
     return wrapper;
 }
