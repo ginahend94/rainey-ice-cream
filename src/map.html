@@ -1,0 +1,2780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Locations</title>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&family=Quicksand:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            color: #404040;
+            font: 400 15px/22px 'Quicksand', 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 400;
+            line-height: 20px;
+            padding: 20px 2px;
+        }
+
+        a {
+            color: #404040;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #101010;
+        }
+
+        /* The page is split between map and sidebar - the sidebar gets 1/3, map
+  gets 2/3 of the page. You can adjust this to your personal liking. */
+        .sidebar {
+            position: absolute;
+            width: 33.3333%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            border-right: 1px solid rgba(0, 0, 0, 0.25);
+        }
+
+        .map {
+            position: absolute;
+            left: 33.3333%;
+            width: 66.6666%;
+            top: 0;
+            bottom: 0;
+        }
+
+        .heading {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            height: 60px;
+            line-height: 60px;
+            padding: 0 10px;
+        }
+
+        .listings {
+            height: 100%;
+            overflow: auto;
+            padding-bottom: 60px;
+        }
+
+        .listings .item {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .listings .item:last-child {
+            border-bottom: none;
+        }
+
+        .listings .item .title {
+            display: block;
+            color: #425753;
+            font-weight: 700;
+        }
+
+        .listings .item .title small {
+            font-weight: 400;
+        }
+
+        .listings .item.active .title,
+        .listings .item .title:hover {
+            color: #232E29;
+        }
+
+        .listings .item.active {
+            background-color: #f8f8f8;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+            border-left: 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: none;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #425753;
+            border-radius: 0;
+        }
+
+        /* Marker tweaks */
+        .mapboxgl-popup-close-button {
+            display: none;
+        }
+
+        .mapboxgl-popup-content {
+            font: 400 15px/22px 'Quicksand', 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+            padding: 0;
+            width: 180px;
+        }
+
+        .mapboxgl-popup-content h3 {
+            background: #6B9080;
+            color: #fff;
+            margin: 0;
+            padding: 10px;
+            border-radius: 3px 3px 0 0;
+            font-weight: 700;
+            margin-top: -15px;
+        }
+
+        .mapboxgl-popup-content h4 {
+            margin: 0;
+            padding: 10px;
+            font-weight: 400;
+        }
+
+        .mapboxgl-popup-content div {
+            padding: 10px;
+        }
+
+        .mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
+            margin-top: 15px;
+        }
+
+        .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
+            border-bottom-color: #6B9080;
+        }
+
+        .marker {
+            border: none;
+            cursor: pointer;
+            height: 56px;
+            width: 56px;
+            background-image: url(./rainey-marker.png);
+        }
+
+        .mapboxgl-popup {
+            padding-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div id="listings" class="listings"></div>
+    </div>
+    <div id="map" class="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZ2luYWhlbmQ5NCIsImEiOiJjbDM1a2psejAwYzh4M2RydGRvMTdicGJmIn0.iN5rhHKogdfcg9PxS-PmPw';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/ginahend94/cl35wywhd000714qnmyw6nnhr',
+            // center: [-77.034084, 38.909671],
+            center: [-86.7816, 36.1627],
+            zoom: 12,
+            scrollZoom: true
+        });
+
+        const stores = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -86.7991220292692,
+                            36.146887500000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "21st Avenue South",
+                        "city": "Nashville",
+                        "country": "United States",
+                        "postalCode": "37235-1826",
+                        "state": "Tennessee",
+                        "id": 0
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -80.84858582949668,
+                            35.224731500000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "525 South Church Street",
+                        "city": "Charlotte",
+                        "country": "United States",
+                        "postalCode": "",
+                        "state": "North Carolina",
+                        "id": 1
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -118.24404963223071,
+                            34.03139495
+                        ]
+                    },
+                    "properties": {
+                        "address": "East Olympic Boulevard",
+                        "city": "Los Angeles",
+                        "country": "United States",
+                        "postalCode": "90021",
+                        "state": "California",
+                        "id": 2
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -121.48118322439694,
+                            38.5694663
+                        ]
+                    },
+                    "properties": {
+                        "address": "2104 P Street",
+                        "city": "Sacramento",
+                        "country": "United States",
+                        "postalCode": "95816",
+                        "state": "California",
+                        "id": 3
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -73.785698,
+                            42.6533163
+                        ]
+                    },
+                    "properties": {
+                        "address": "247 New Scotland Avenue",
+                        "city": "Albany",
+                        "country": "United States",
+                        "postalCode": "12208",
+                        "state": "New York",
+                        "id": 4
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -73.96861624738895,
+                            40.761180100000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "711 Lexington Avenue",
+                        "city": "New York",
+                        "country": "United States",
+                        "postalCode": "10022",
+                        "state": "New York",
+                        "id": 5
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -97.7383672,
+                            30.3133675
+                        ]
+                    },
+                    "properties": {
+                        "address": "West 45th Street",
+                        "city": "Austin",
+                        "country": "United States",
+                        "postalCode": "78756",
+                        "state": "Texas",
+                        "id": 6
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -122.332551,
+                            47.6080984
+                        ]
+                    },
+                    "properties": {
+                        "address": "501 Seneca Street",
+                        "city": "Seattle",
+                        "country": "United States",
+                        "postalCode": "98138",
+                        "state": "Washington",
+                        "id": 7
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -122.68016686568924,
+                            45.516918000000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "1025 Southwest 6th Avenue",
+                        "city": "Portland",
+                        "country": "United States",
+                        "postalCode": "97204",
+                        "state": "Oregon",
+                        "id": 8
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -103.86317705660676,
+                            44.49020795
+                        ]
+                    },
+                    "properties": {
+                        "address": "West Jackson Boulevard",
+                        "city": "Spearfish",
+                        "country": "United States",
+                        "postalCode": "57783",
+                        "state": "South Dakota",
+                        "id": 9
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -112.01823315,
+                            46.59132095
+                        ]
+                    },
+                    "properties": {
+                        "address": "Prospect Avenue",
+                        "city": "Helena",
+                        "country": "United States",
+                        "postalCode": "59620",
+                        "state": "Montana",
+                        "id": 10
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -111.87195478045406,
+                            40.76102055
+                        ]
+                    },
+                    "properties": {
+                        "address": "665 400 South",
+                        "city": "Salt Lake City",
+                        "country": "United States",
+                        "postalCode": "84102",
+                        "state": "Utah",
+                        "id": 11
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -115.154419,
+                            36.143928
+                        ]
+                    },
+                    "properties": {
+                        "address": "East Sahara Avenue",
+                        "city": "Las Vegas",
+                        "country": "United States",
+                        "postalCode": "89104-2530",
+                        "state": "Nevada",
+                        "id": 12
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -116.20429924489127,
+                            43.62089435
+                        ]
+                    },
+                    "properties": {
+                        "address": "West State Street",
+                        "city": "Boise",
+                        "country": "United States",
+                        "postalCode": "83701",
+                        "state": "Idaho",
+                        "id": 13
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -112.0707456,
+                            33.4502494
+                        ]
+                    },
+                    "properties": {
+                        "address": "208 East Monroe Street",
+                        "city": "Phoenix",
+                        "country": "United States",
+                        "postalCode": "85004-1905",
+                        "state": "Arizona",
+                        "id": 14
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -105.00463744991978,
+                            39.7396507
+                        ]
+                    },
+                    "properties": {
+                        "address": "1350 West Colfax Avenue",
+                        "city": "Denver",
+                        "country": "United States",
+                        "postalCode": "80204",
+                        "state": "Colorado",
+                        "id": 15
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -104.8169807,
+                            41.138002549999996
+                        ]
+                    },
+                    "properties": {
+                        "address": "2111 Central Avenue",
+                        "city": "Cheyenne",
+                        "country": "United States",
+                        "postalCode": "82001",
+                        "state": "Wyoming",
+                        "id": 16
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -100.78211582218064,
+                            46.805076400000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "605 East Main Avenue",
+                        "city": "Bismarck",
+                        "country": "United States",
+                        "postalCode": "58501",
+                        "state": "North Dakota",
+                        "id": 17
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -105.9398685,
+                            35.6872698
+                        ]
+                    },
+                    "properties": {
+                        "address": "106 West San Francisco Street",
+                        "city": "Santa Fe",
+                        "country": "United States",
+                        "postalCode": "87501",
+                        "state": "New Mexico",
+                        "id": 18
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -96.80037690063358,
+                            32.784760399999996
+                        ]
+                    },
+                    "properties": {
+                        "address": "North Ervay Street",
+                        "city": "Dallas",
+                        "country": "United States",
+                        "postalCode": "75201",
+                        "state": "Texas",
+                        "id": 19
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -97.5155698921873,
+                            35.46802975
+                        ]
+                    },
+                    "properties": {
+                        "address": "119 West Main Street",
+                        "city": "Oklahoma City",
+                        "country": "United States",
+                        "postalCode": "73102",
+                        "state": "Oklahoma",
+                        "id": 20
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -94.69099537227274,
+                            38.971794
+                        ]
+                    },
+                    "properties": {
+                        "address": "West 87th Street",
+                        "city": "Overland Park",
+                        "country": "United States",
+                        "postalCode": "66212",
+                        "state": "Kansas",
+                        "id": 21
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -90.06537064958997,
+                            29.9531968
+                        ]
+                    },
+                    "properties": {
+                        "address": "237 North Peters Street",
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "postalCode": "70130",
+                        "state": "Louisiana",
+                        "id": 22
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -90.17028484567855,
+                            32.303651
+                        ]
+                    },
+                    "properties": {
+                        "address": "High Street",
+                        "city": "Jackson",
+                        "country": "United States",
+                        "postalCode": "39202",
+                        "state": "Mississippi",
+                        "id": 23
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -86.26621955294505,
+                            32.36372215
+                        ]
+                    },
+                    "properties": {
+                        "address": "Zelda Road",
+                        "city": "Montgomery",
+                        "country": "United States",
+                        "postalCode": "36106",
+                        "state": "Alabama",
+                        "id": 24
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -84.3921178,
+                            33.74830855
+                        ]
+                    },
+                    "properties": {
+                        "address": "130 Trinity Avenue Southwest",
+                        "city": "Atlanta",
+                        "country": "United States",
+                        "postalCode": "30303",
+                        "state": "Georgia",
+                        "id": 25
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -81.378598912358,
+                            28.538777500000002
+                        ]
+                    },
+                    "properties": {
+                        "address": "Lymmo",
+                        "city": "Orlando",
+                        "country": "United States",
+                        "postalCode": "32801",
+                        "state": "Florida",
+                        "id": 26
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -84.28124025895511,
+                            30.41210405
+                        ]
+                    },
+                    "properties": {
+                        "address": "South Monroe Street",
+                        "city": "Tallahassee",
+                        "country": "United States",
+                        "postalCode": "32301-6977",
+                        "state": "Florida",
+                        "id": 27
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.9547517,
+                            32.787153
+                        ]
+                    },
+                    "properties": {
+                        "address": "Spring Street",
+                        "city": "Charleston",
+                        "country": "United States",
+                        "postalCode": "29425",
+                        "state": "South Carolina",
+                        "id": 28
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -77.4486719,
+                            37.5437571
+                        ]
+                    },
+                    "properties": {
+                        "address": "101 South Belvidere Street",
+                        "city": "Richmond",
+                        "country": "United States",
+                        "postalCode": "23220",
+                        "state": "Virginia",
+                        "id": 29
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -84.49162516626437,
+                            38.042521199999996
+                        ]
+                    },
+                    "properties": {
+                        "address": "350 East Short Street",
+                        "city": "Lexington",
+                        "country": "United States",
+                        "postalCode": "40507",
+                        "state": "Kentucky",
+                        "id": 30
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -81.6362408,
+                            38.3530105
+                        ]
+                    },
+                    "properties": {
+                        "address": "Court Street",
+                        "city": "Charleston",
+                        "country": "United States",
+                        "postalCode": "25301",
+                        "state": "West Virginia",
+                        "id": 31
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -92.31726842646503,
+                            34.750676
+                        ]
+                    },
+                    "properties": {
+                        "address": "Plateau Street",
+                        "city": "Little Rock",
+                        "country": "United States",
+                        "postalCode": "72205",
+                        "state": "Arkansas",
+                        "id": 32
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -92.2065539,
+                            38.5808854
+                        ]
+                    },
+                    "properties": {
+                        "address": "Missouri Boulevard",
+                        "city": "Jefferson City",
+                        "country": "United States",
+                        "postalCode": "65102",
+                        "state": "Missouri",
+                        "id": 33
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -93.63031180892614,
+                            41.5859734
+                        ]
+                    },
+                    "properties": {
+                        "address": "1011 Locust Street",
+                        "city": "Des Moines",
+                        "country": "United States",
+                        "postalCode": "50309",
+                        "state": "Iowa",
+                        "id": 34
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -93.12284135,
+                            44.9310224
+                        ]
+                    },
+                    "properties": {
+                        "address": "Jefferson Avenue",
+                        "city": "Saint Paul",
+                        "country": "United States",
+                        "postalCode": "55105",
+                        "state": "Minnesota",
+                        "id": 35
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -89.66103756959541,
+                            39.802610599999994
+                        ]
+                    },
+                    "properties": {
+                        "address": "522 West Jefferson Street",
+                        "city": "Springfield",
+                        "country": "United States",
+                        "postalCode": "62702",
+                        "state": "Illinois",
+                        "id": 36
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -86.1418969,
+                            39.766521600000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "East Washington Street",
+                        "city": "Indianapolis",
+                        "country": "United States",
+                        "postalCode": "46219",
+                        "state": "Indiana",
+                        "id": 37
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -89.40453265,
+                            43.068036500000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "1102 Regent Street",
+                        "city": "Madison",
+                        "country": "United States",
+                        "postalCode": "53706",
+                        "state": "Wisconsin",
+                        "id": 38
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -84.5451735,
+                            42.7294985
+                        ]
+                    },
+                    "properties": {
+                        "address": "413 South Cedar Street",
+                        "city": "Lansing",
+                        "country": "United States",
+                        "postalCode": "48910",
+                        "state": "Michigan",
+                        "id": 39
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -84.510806603536,
+                            39.10243505
+                        ]
+                    },
+                    "properties": {
+                        "address": "580 Walnut Street",
+                        "city": "Cincinnati",
+                        "country": "United States",
+                        "postalCode": "45202-2209",
+                        "state": "Ohio",
+                        "id": 40
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -75.15168916224184,
+                            39.9506236
+                        ]
+                    },
+                    "properties": {
+                        "address": "618 Market Street",
+                        "city": "Philadelphia",
+                        "country": "United States",
+                        "postalCode": "19106",
+                        "state": "Pennsylvania",
+                        "id": 41
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -75.67330953469387,
+                            41.39976455
+                        ]
+                    },
+                    "properties": {
+                        "address": "Beech Street",
+                        "city": "Scranton",
+                        "country": "United States",
+                        "postalCode": "18505",
+                        "state": "Pennsylvania",
+                        "id": 42
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -72.5515651,
+                            44.227474650000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "1332 Barre-Montpelier Road",
+                        "city": "Berlin",
+                        "country": "United States",
+                        "postalCode": "05641",
+                        "state": "Vermont",
+                        "id": 43
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -71.5323851,
+                            43.2137782
+                        ]
+                    },
+                    "properties": {
+                        "address": "Fort Eddy Road",
+                        "city": "Concord",
+                        "country": "United States",
+                        "postalCode": "03301",
+                        "state": "New Hampshire",
+                        "id": 44
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -71.05778556872815,
+                            42.357718250000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "262 Washington Street",
+                        "city": "Boston",
+                        "country": "United States",
+                        "postalCode": "02201",
+                        "state": "Massachusetts",
+                        "id": 45
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -72.6992448,
+                            41.7585276
+                        ]
+                    },
+                    "properties": {
+                        "address": "Park Street",
+                        "city": "Hartford",
+                        "country": "United States",
+                        "postalCode": "06106",
+                        "state": "Connecticut",
+                        "id": 46
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -74.7401282,
+                            40.2031153
+                        ]
+                    },
+                    "properties": {
+                        "address": "1284 South Broad Street",
+                        "city": "Trenton",
+                        "country": "United States",
+                        "postalCode": "08610",
+                        "state": "New Jersey",
+                        "id": 47
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -75.5161703,
+                            39.1727434
+                        ]
+                    },
+                    "properties": {
+                        "address": "Halsey Road",
+                        "city": "Dover",
+                        "country": "United States",
+                        "postalCode": "19901-4261",
+                        "state": "Delaware",
+                        "id": 48
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -71.420187,
+                            41.818443
+                        ]
+                    },
+                    "properties": {
+                        "address": "719 Westminster Street",
+                        "city": "Providence",
+                        "country": "United States",
+                        "postalCode": "02903",
+                        "state": "Rhode Island",
+                        "id": 49
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -77.043618,
+                            38.910432
+                        ]
+                    },
+                    "properties": {
+                        "address": "19th Street Northwest",
+                        "city": "Washington",
+                        "country": "United States",
+                        "postalCode": "20009",
+                        "state": "District of Columbia",
+                        "id": 50
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -76.61555581225315,
+                            39.29947355
+                        ]
+                    },
+                    "properties": {
+                        "address": "827 North Charles Street",
+                        "city": "Baltimore",
+                        "country": "United States",
+                        "postalCode": "21201",
+                        "state": "Maryland",
+                        "id": 51
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -77.68626873882994,
+                            43.13168055
+                        ]
+                    },
+                    "properties": {
+                        "address": "1965 Chili Avenue",
+                        "city": "Rochester",
+                        "country": "United States",
+                        "postalCode": "14624",
+                        "state": "New York",
+                        "id": 52
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -69.7820683626133,
+                            44.31078805
+                        ]
+                    },
+                    "properties": {
+                        "address": "22 Melville Street",
+                        "city": "Augusta",
+                        "country": "United States",
+                        "postalCode": "04330",
+                        "state": "Maine",
+                        "id": 53
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -93.7013096,
+                            32.52707495
+                        ]
+                    },
+                    "properties": {
+                        "address": "1979 Airline Drive",
+                        "city": "Bossier City",
+                        "country": "United States",
+                        "postalCode": "71112",
+                        "state": "Louisiana",
+                        "id": 54
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -97.33578532635354,
+                            37.6803242
+                        ]
+                    },
+                    "properties": {
+                        "address": "South Broadway Avenue",
+                        "city": "Wichita",
+                        "country": "United States",
+                        "postalCode": "67202",
+                        "state": "Kansas",
+                        "id": 55
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -96.70022799703166,
+                            40.81559635
+                        ]
+                    },
+                    "properties": {
+                        "address": "Q Street",
+                        "city": "Lincoln",
+                        "country": "United States",
+                        "postalCode": "68503",
+                        "state": "Nebraska",
+                        "id": 56
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -101.8694738,
+                            35.1641696
+                        ]
+                    },
+                    "properties": {
+                        "address": "Southwest 45th Avenue",
+                        "city": "Amarillo",
+                        "country": "United States",
+                        "postalCode": "79109",
+                        "state": "Texas",
+                        "id": 57
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -96.7147279,
+                            43.5463941
+                        ]
+                    },
+                    "properties": {
+                        "address": "East 10th Street",
+                        "city": "Sioux Falls",
+                        "country": "United States",
+                        "postalCode": "57117",
+                        "state": "South Dakota",
+                        "id": 58
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -119.7922001,
+                            36.7362185
+                        ]
+                    },
+                    "properties": {
+                        "address": "Fresno Street",
+                        "city": "Fresno",
+                        "country": "United States",
+                        "postalCode": "93721",
+                        "state": "California",
+                        "id": 59
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -122.4172737,
+                            37.777046
+                        ]
+                    },
+                    "properties": {
+                        "address": "1390 Market Street",
+                        "city": "San Francisco",
+                        "country": "United States",
+                        "postalCode": "94102",
+                        "state": "California",
+                        "id": 60
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -124.14718531278305,
+                            40.7992706
+                        ]
+                    },
+                    "properties": {
+                        "address": "Hill Street",
+                        "city": "Eureka",
+                        "country": "United States",
+                        "postalCode": "95501",
+                        "state": "California",
+                        "id": 61
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -106.4519608,
+                            31.7131829
+                        ]
+                    },
+                    "properties": {
+                        "address": "Avenida Adolfo Lopez Mateos",
+                        "city": "Ciudad Juárez",
+                        "country": "Mexico",
+                        "postalCode": "32390",
+                        "state": "Chihuahua",
+                        "id": 62
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -110.98612893197657,
+                            29.0861503
+                        ]
+                    },
+                    "properties": {
+                        "address": "Boulevard Solidaridad",
+                        "city": "Hermosillo",
+                        "country": "Mexico",
+                        "postalCode": "83246",
+                        "state": "Sonora",
+                        "id": 63
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -66.115857,
+                            18.4648877
+                        ]
+                    },
+                    "properties": {
+                        "address": "Calle de la Fortaleza",
+                        "city": "San Juan",
+                        "country": "United States",
+                        "postalCode": "00901",
+                        "state": "Puerto Rico",
+                        "id": 64
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -76.7930309,
+                            17.9666087
+                        ]
+                    },
+                    "properties": {
+                        "address": "Water Lane",
+                        "city": "Kingston",
+                        "country": "Jamaica",
+                        "postalCode": "KINGSTON",
+                        "state": "Saint Andrew",
+                        "id": 65
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -77.1060627724221,
+                            18.40675265
+                        ]
+                    },
+                    "properties": {
+                        "address": "22 Main Street",
+                        "city": "Ocho Rios",
+                        "country": "Jamaica",
+                        "postalCode": "JM19",
+                        "state": "",
+                        "id": 66
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -77.9211723,
+                            18.4536902
+                        ]
+                    },
+                    "properties": {
+                        "address": "Alice Eldemire Drive",
+                        "city": "",
+                        "country": "Jamaica",
+                        "postalCode": "33068",
+                        "state": "Saint James",
+                        "id": 67
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -104.6187799,
+                            50.4505997
+                        ]
+                    },
+                    "properties": {
+                        "address": "Sinton Lane",
+                        "city": "Regina",
+                        "country": "Canada",
+                        "postalCode": "S4P 0K5",
+                        "state": "Saskatchewan",
+                        "id": 68
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.3932645,
+                            43.6401669
+                        ]
+                    },
+                    "properties": {
+                        "address": "Spadina Avenue",
+                        "city": "Toronto",
+                        "country": "Canada",
+                        "postalCode": "M5V 3Y7",
+                        "state": "Ontario",
+                        "id": 69
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -87.2862646023684,
+                            36.5978971
+                        ]
+                    },
+                    "properties": {
+                        "address": "3096 Wilma Rudolph Boulevard",
+                        "city": "Clarksville",
+                        "country": "United States",
+                        "postalCode": "37040",
+                        "state": "Tennessee",
+                        "id": 70
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -73.6054227,
+                            45.477549
+                        ]
+                    },
+                    "properties": {
+                        "address": "4943 Sherbrooke Street West",
+                        "city": "Westmount",
+                        "country": "Canada",
+                        "postalCode": "H3Z 1H3",
+                        "state": "Quebec",
+                        "id": 71
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -71.2149255297696,
+                            46.811925099999996
+                        ]
+                    },
+                    "properties": {
+                        "address": "800 Rue Saint-Jean",
+                        "city": "Quebec City",
+                        "country": "Canada",
+                        "postalCode": "G1R 3P4",
+                        "state": "Quebec",
+                        "id": 72
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -97.1534877,
+                            49.8710908
+                        ]
+                    },
+                    "properties": {
+                        "address": "Corydon Avenue",
+                        "city": "Winnipeg",
+                        "country": "Canada",
+                        "postalCode": "R3M 0W6",
+                        "state": "Manitoba",
+                        "id": 73
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -113.4950381920454,
+                            53.5155211
+                        ]
+                    },
+                    "properties": {
+                        "address": "Gateway Boulevard NW",
+                        "city": "Edmonton",
+                        "country": "Canada",
+                        "postalCode": "T6E 3X8",
+                        "state": "Alberta",
+                        "id": 74
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -123.11557935381302,
+                            49.256440600000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "3228 Tupper Street",
+                        "city": "Vancouver",
+                        "country": "Canada",
+                        "postalCode": "V5Z 4S7",
+                        "state": "British Columbia",
+                        "id": 75
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -149.86729425,
+                            61.19386315
+                        ]
+                    },
+                    "properties": {
+                        "address": "Seward Highway",
+                        "city": "Anchorage",
+                        "country": "United States",
+                        "postalCode": "9501",
+                        "state": "Alaska",
+                        "id": 76
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -147.69034397106464,
+                            64.85467865
+                        ]
+                    },
+                    "properties": {
+                        "address": "930 Old Steese Highway",
+                        "city": "Fairbanks",
+                        "country": "United States",
+                        "postalCode": "99701",
+                        "state": "Alaska",
+                        "id": 77
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -155.06071805004595,
+                            19.6989199
+                        ]
+                    },
+                    "properties": {
+                        "address": "368 East Makaʻala Street",
+                        "city": "Hilo",
+                        "country": "United States",
+                        "postalCode": "96720",
+                        "state": "Hawaii",
+                        "id": 78
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -157.82984520033042,
+                            21.2964945
+                        ]
+                    },
+                    "properties": {
+                        "address": "South Beretania Street",
+                        "city": "Honolulu",
+                        "country": "United States",
+                        "postalCode": "96826",
+                        "state": "Hawaii",
+                        "id": 79
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            3.3785608,
+                            6.5034495
+                        ]
+                    },
+                    "properties": {
+                        "address": "9 McEwen Street",
+                        "city": "Onike",
+                        "country": "Nigeria",
+                        "postalCode": "YABA",
+                        "state": "Lagos",
+                        "id": 80
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.17295202764054157,
+                            5.62219915
+                        ]
+                    },
+                    "properties": {
+                        "address": "Tetteh Quarshie Interchange",
+                        "city": "Accra",
+                        "country": "Ghana",
+                        "postalCode": "EAST LEGON",
+                        "state": "Greater Accra Region",
+                        "id": 81
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            31.222291869939575,
+                            30.0165316
+                        ]
+                    },
+                    "properties": {
+                        "address": "Abd Al Aziz Al Seoud Street",
+                        "city": "Cairo",
+                        "country": "Egypt",
+                        "postalCode": "11451",
+                        "state": "Cairo",
+                        "id": 82
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            28.0396709,
+                            -26.2009957
+                        ]
+                    },
+                    "properties": {
+                        "address": "Lilian Ngoyi Street",
+                        "city": "Johannesburg",
+                        "country": "South Africa",
+                        "postalCode": "2001",
+                        "state": "Gauteng",
+                        "id": 83
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -74.0758524,
+                            4.5999078
+                        ]
+                    },
+                    "properties": {
+                        "address": "Calle 12",
+                        "city": "Bogota",
+                        "country": "Colombia",
+                        "postalCode": "111711",
+                        "state": "",
+                        "id": 84
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -84.0768349,
+                            9.9321939
+                        ]
+                    },
+                    "properties": {
+                        "address": "5th Street",
+                        "city": "Catedral",
+                        "country": "Costa Rica",
+                        "postalCode": "10104",
+                        "state": "San José",
+                        "id": 85
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -43.236688010016536,
+                            -22.9127151
+                        ]
+                    },
+                    "properties": {
+                        "address": "553 Rua São Francisco Xavier",
+                        "city": "Rio de Janeiro",
+                        "country": "Brazil",
+                        "postalCode": "20550-900",
+                        "state": "Rio de Janeiro",
+                        "id": 86
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -70.6785034,
+                            -33.4514113
+                        ]
+                    },
+                    "properties": {
+                        "address": "Avenida Libertador Bernardo O'Higgins",
+                        "city": "Estación Central",
+                        "country": "Chile",
+                        "postalCode": "9160002",
+                        "state": "Santiago Metropolitan Region",
+                        "id": 87
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            36.7994581,
+                            -1.2955251
+                        ]
+                    },
+                    "properties": {
+                        "address": "Argwings Kodhek Road",
+                        "city": "Nairobi",
+                        "country": "Kenya",
+                        "postalCode": "30728",
+                        "state": "Nairobi",
+                        "id": 88
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -9.1528598,
+                            38.7071167
+                        ]
+                    },
+                    "properties": {
+                        "address": "Avenida Dom Carlos I",
+                        "city": "Lisbon",
+                        "country": "Portugal",
+                        "postalCode": "1200-676",
+                        "state": "Lisbon",
+                        "id": 89
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -3.692910673490358,
+                            40.40875655
+                        ]
+                    },
+                    "properties": {
+                        "address": "9 Plaza del Emperador Carlos V",
+                        "city": "Madrid",
+                        "country": "Spain",
+                        "postalCode": "28012",
+                        "state": "Community of Madrid",
+                        "id": 90
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            2.1635088,
+                            41.3852818
+                        ]
+                    },
+                    "properties": {
+                        "address": "Plaça de la Universitat",
+                        "city": "Barcelona",
+                        "country": "Spain",
+                        "postalCode": "08001",
+                        "state": "Catalonia",
+                        "id": 91
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            2.3566617,
+                            48.8307271
+                        ]
+                    },
+                    "properties": {
+                        "address": "Place d'Italie",
+                        "city": "Paris",
+                        "country": "France",
+                        "postalCode": "75013",
+                        "state": "Ile-de-France",
+                        "id": 92
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            5.3795609,
+                            43.2919409
+                        ]
+                    },
+                    "properties": {
+                        "address": "Rue Montgrand",
+                        "city": "Marseille",
+                        "country": "France",
+                        "postalCode": "13006",
+                        "state": "Provence-Alpes-Côte d'Azur",
+                        "id": 93
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            13.380964241396857,
+                            52.5105648
+                        ]
+                    },
+                    "properties": {
+                        "address": "12 Leipziger Platz",
+                        "city": "Berlin",
+                        "country": "Germany",
+                        "postalCode": "10117",
+                        "state": "",
+                        "id": 94
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            8.695348789099146,
+                            49.40982685
+                        ]
+                    },
+                    "properties": {
+                        "address": "1 Neugasse",
+                        "city": "Heidelberg",
+                        "country": "Germany",
+                        "postalCode": "69117",
+                        "state": "Baden-Württemberg",
+                        "id": 95
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0929468,
+                            51.5117645
+                        ]
+                    },
+                    "properties": {
+                        "address": "29 Queen Street",
+                        "city": "City of London",
+                        "country": "United Kingdom",
+                        "postalCode": "EC4R 1BR",
+                        "state": "England",
+                        "id": 96
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -4.266532277465526,
+                            55.839035800000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "Kingarth Street",
+                        "city": "Glasgow",
+                        "country": "United Kingdom",
+                        "postalCode": "G42 7RN",
+                        "state": "Scotland",
+                        "id": 97
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -6.266701649173467,
+                            53.3380572
+                        ]
+                    },
+                    "properties": {
+                        "address": "Kevin Street Lower",
+                        "city": "Dublin",
+                        "country": "Ireland",
+                        "postalCode": "D02 TD99",
+                        "state": "",
+                        "id": 98
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -3.1773803597222114,
+                            51.477954350000005
+                        ]
+                    },
+                    "properties": {
+                        "address": "The Brewery Quarter",
+                        "city": "Cardiff",
+                        "country": "United Kingdom",
+                        "postalCode": "CF10 1AD",
+                        "state": "Wales",
+                        "id": 99
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            12.487976,
+                            41.8974479
+                        ]
+                    },
+                    "properties": {
+                        "address": "178/179 Via Nazionale",
+                        "city": "Rome",
+                        "country": "Italy",
+                        "postalCode": "00184",
+                        "state": "Lazio",
+                        "id": 100
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            14.2487627,
+                            40.8383744
+                        ]
+                    },
+                    "properties": {
+                        "address": "72;73;74;75 Galleria Umberto I",
+                        "city": "Naples",
+                        "country": "Italy",
+                        "postalCode": "80132",
+                        "state": "Campania",
+                        "id": 101
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            23.7337303,
+                            37.9759104
+                        ]
+                    },
+                    "properties": {
+                        "address": "Ερμού",
+                        "city": "Athens",
+                        "country": "Greece",
+                        "postalCode": "10563",
+                        "state": "Attica",
+                        "id": 102
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            21.01243458424355,
+                            52.22280365
+                        ]
+                    },
+                    "properties": {
+                        "address": "19 Lwowska",
+                        "city": "Warsaw",
+                        "country": "Poland",
+                        "postalCode": "00-660",
+                        "state": "Masovian Voivodeship",
+                        "id": 103
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            7.4476543,
+                            46.9481593
+                        ]
+                    },
+                    "properties": {
+                        "address": "Kornhausplatz",
+                        "city": "Bern",
+                        "country": "Switzerland",
+                        "postalCode": "3011",
+                        "state": "Bern",
+                        "id": 104
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            4.8896963,
+                            52.3669967
+                        ]
+                    },
+                    "properties": {
+                        "address": "480 Singel",
+                        "city": "Amsterdam",
+                        "country": "Netherlands",
+                        "postalCode": "1017AW",
+                        "state": "North Holland",
+                        "id": 105
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            16.3716514,
+                            48.2052379
+                        ]
+                    },
+                    "properties": {
+                        "address": "3 Johannesgasse",
+                        "city": "Vienna",
+                        "country": "Austria",
+                        "postalCode": "1010",
+                        "state": "Vienna",
+                        "id": 106
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            12.569008,
+                            55.676665
+                        ]
+                    },
+                    "properties": {
+                        "address": "45 Rådhuspladsen",
+                        "city": "Copenhagen",
+                        "country": "Denmark",
+                        "postalCode": "1550",
+                        "state": "Capital",
+                        "id": 107
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.752831776633471,
+                            59.910928049999995
+                        ]
+                    },
+                    "properties": {
+                        "address": "Access to tracks 5 and 6",
+                        "city": "Oslo",
+                        "country": "Norway",
+                        "postalCode": "0050",
+                        "state": "",
+                        "id": 108
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            18.0718725,
+                            59.3167385
+                        ]
+                    },
+                    "properties": {
+                        "address": "Götgatan",
+                        "city": "Stockholm",
+                        "country": "Sweden",
+                        "postalCode": "116 46",
+                        "state": "Stockholm",
+                        "id": 109
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            32.85474892594368,
+                            39.91792945
+                        ]
+                    },
+                    "properties": {
+                        "address": "117 Meşrutiyet Caddesi",
+                        "city": "Ankara",
+                        "country": "Turkey",
+                        "postalCode": "06420",
+                        "state": "Central Anatolia Region",
+                        "id": 110
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            72.83410272900421,
+                            18.9323434
+                        ]
+                    },
+                    "properties": {
+                        "address": "Bombay Samachar Marg",
+                        "city": "Mumbai Metropolitan Region",
+                        "country": "India",
+                        "postalCode": "400032",
+                        "state": "Maharashtra",
+                        "id": 111
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            77.2214974,
+                            28.6328
+                        ]
+                    },
+                    "properties": {
+                        "address": "Rajiv Chowk",
+                        "city": "New Delhi",
+                        "country": "India",
+                        "postalCode": "110001",
+                        "state": "Delhi",
+                        "id": 112
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            106.70106665840808,
+                            10.77558105
+                        ]
+                    },
+                    "properties": {
+                        "address": "141 Nguyen Hue Boulevard",
+                        "city": "Ho Chi Minh City",
+                        "country": "Vietnam",
+                        "postalCode": "71006",
+                        "state": "",
+                        "id": 113
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            101.6323824,
+                            3.1112355
+                        ]
+                    },
+                    "properties": {
+                        "address": "Jalan Datuk Abdul Aziz (11/49)",
+                        "city": "Petaling Jaya",
+                        "country": "Malaysia",
+                        "postalCode": "46200",
+                        "state": "Selangor",
+                        "id": 114
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            103.84641593037244,
+                            1.3609174
+                        ]
+                    },
+                    "properties": {
+                        "address": "1378 Ang Mo Kio Avenue 1",
+                        "city": "Singapore",
+                        "country": "Singapore",
+                        "postalCode": "569981",
+                        "state": "",
+                        "id": 115
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            120.9954069,
+                            14.5792658
+                        ]
+                    },
+                    "properties": {
+                        "address": "Santo Sepulcro Street",
+                        "city": "Manila",
+                        "country": "Philippines",
+                        "postalCode": "1007",
+                        "state": "Metro Manila",
+                        "id": 116
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            121.5480426,
+                            25.0413004
+                        ]
+                    },
+                    "properties": {
+                        "address": "128 忠孝東路四段",
+                        "city": "Taipei",
+                        "country": "Taiwan",
+                        "postalCode": "10686",
+                        "state": "",
+                        "id": 117
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            114.1702897,
+                            22.3211508
+                        ]
+                    },
+                    "properties": {
+                        "address": "Mong Kok Road",
+                        "city": "Kowloon",
+                        "country": "China",
+                        "postalCode": "",
+                        "state": "Hong Kong",
+                        "id": 118
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            116.3678066,
+                            39.9103171
+                        ]
+                    },
+                    "properties": {
+                        "address": "N. Xidan Str",
+                        "city": "Xicheng District",
+                        "country": "China",
+                        "postalCode": "100032",
+                        "state": "Beijing",
+                        "id": 119
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            126.97668827846462,
+                            37.56243415
+                        ]
+                    },
+                    "properties": {
+                        "address": "70-1 Sejong-daero",
+                        "city": "Seoul",
+                        "country": "South Korea",
+                        "postalCode": "04526",
+                        "state": "",
+                        "id": 120
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            128.5367309,
+                            35.8444119
+                        ]
+                    },
+                    "properties": {
+                        "address": "Waryong-ro",
+                        "city": "Daegu",
+                        "country": "South Korea",
+                        "postalCode": "42730",
+                        "state": "Daegu",
+                        "id": 121
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            139.7054779,
+                            35.6564007
+                        ]
+                    },
+                    "properties": {
+                        "address": "Meiji-dori Avenue",
+                        "city": "Shibuya",
+                        "country": "Japan",
+                        "postalCode": "150-0002",
+                        "state": "Tokyo",
+                        "id": 122
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            126.52955748527341,
+                            33.49966885
+                        ]
+                    },
+                    "properties": {
+                        "address": "224 Jungang-ro",
+                        "city": "Jeju",
+                        "country": "South Korea",
+                        "postalCode": "63208",
+                        "state": "",
+                        "id": 123
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            135.5066069,
+                            34.6789101
+                        ]
+                    },
+                    "properties": {
+                        "address": "Sakaisuji",
+                        "city": "Osaka",
+                        "country": "Japan",
+                        "postalCode": "541-0043",
+                        "state": "Osaka Prefecture",
+                        "id": 124
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            138.58781599016407,
+                            -34.923392050000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "West Terrace",
+                        "city": "Adelaide",
+                        "country": "Australia",
+                        "postalCode": "5000",
+                        "state": "South Australia",
+                        "id": 125
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            151.22156945602296,
+                            -33.8764601
+                        ]
+                    },
+                    "properties": {
+                        "address": "227 Victoria Street",
+                        "city": "Sydney",
+                        "country": "Australia",
+                        "postalCode": "2010",
+                        "state": "New South Wales",
+                        "id": 126
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            144.9543683,
+                            -37.81866625
+                        ]
+                    },
+                    "properties": {
+                        "address": "620 Collins Street",
+                        "city": "Melbourne",
+                        "country": "Australia",
+                        "postalCode": "3000",
+                        "state": "Victoria",
+                        "id": 127
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            153.0309415668155,
+                            -27.51513875
+                        ]
+                    },
+                    "properties": {
+                        "address": "Chester Road",
+                        "city": "Brisbane City",
+                        "country": "Australia",
+                        "postalCode": "4103",
+                        "state": "Queensland",
+                        "id": 128
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            115.8574503,
+                            -31.9532353
+                        ]
+                    },
+                    "properties": {
+                        "address": "William Street",
+                        "city": "Perth",
+                        "country": "Australia",
+                        "postalCode": "6000",
+                        "state": "Western Australia",
+                        "id": 129
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            174.7758944,
+                            -41.2906858
+                        ]
+                    },
+                    "properties": {
+                        "address": "75 Manners Street",
+                        "city": "Wellington",
+                        "country": "New Zealand",
+                        "postalCode": "6011",
+                        "state": "Wellington",
+                        "id": 130
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            172.63535972273428,
+                            -43.53854035
+                        ]
+                    },
+                    "properties": {
+                        "address": "555 Colombo Street",
+                        "city": "Christchurch",
+                        "country": "New Zealand",
+                        "postalCode": "8014",
+                        "state": "Canterbury",
+                        "id": 131
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            46.712033,
+                            24.6549575
+                        ]
+                    },
+                    "properties": {
+                        "address": "Abdul Aziz Bin Musaed Bin Julowi St.",
+                        "city": "Riyadh",
+                        "country": "Saudi Arabia",
+                        "postalCode": "3285",
+                        "state": "Riyadh Region",
+                        "id": 132
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            55.306378,
+                            25.268404
+                        ]
+                    },
+                    "properties": {
+                        "address": "29454 95744 Al Maktoum Street",
+                        "city": "Dubai",
+                        "country": "United Arab Emirates",
+                        "postalCode": "63114",
+                        "state": "Dubai",
+                        "id": 133
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -21.960735232179296,
+                            64.1507282
+                        ]
+                    },
+                    "properties": {
+                        "address": "121 Hringbraut",
+                        "city": "Reykjavik",
+                        "country": "Iceland",
+                        "postalCode": "101",
+                        "state": "",
+                        "id": 134
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            30.52279907367066,
+                            50.43947034999999
+                        ]
+                    },
+                    "properties": {
+                        "address": "2 Esplanadna Street",
+                        "city": "Kyiv",
+                        "country": "Ukraine",
+                        "postalCode": "01023",
+                        "state": "",
+                        "id": 135
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            24.752396806252758,
+                            59.434352000000004
+                        ]
+                    },
+                    "properties": {
+                        "address": "1 Teatri väljak",
+                        "city": "Tallinn",
+                        "country": "Estonia",
+                        "postalCode": "10143",
+                        "state": "",
+                        "id": 136
+                    }
+                }
+            ]
+        }
+
+        function buildLocationsList(stores) {
+            for (const store of stores.features) {
+                const listings = document.getElementById('listings');
+                const listing = listings.appendChild(document.createElement('div'));
+                listing.id = `listing-${store.properties.id}`;
+                listing.dataset.country = `${store.properties.country}`;
+                listing.classList.add('item');
+
+                const link = listing.appendChild(document.createElement('a'));
+                link.href = '#';
+                link.classList.add('title');
+                link.id = `link-${store.properties.id}`;
+                link.innerHTML = `${store.properties.address}`;
+
+                const details = listing.appendChild(document.createElement('div'));
+                details.innerHTML += `${store.properties.city}, ${store.properties.state ? store.properties.state + ', ' : ''} ${store.properties.country}`;
+
+                link.addEventListener('click', function () {
+                    for (const feature of stores.features) {
+                        if (this.id === `link-${feature.properties.id}`) {
+                            flyToStore(feature);
+                            createPopUp(feature);
+                        }
+                    }
+                    const activeItem = document.getElementsByClassName('active');
+                    if (activeItem[0]) {
+                        activeItem[0].classList.remove('active');
+                    }
+                    this.parentNode.classList.add('active');
+                });
+            }
+        }
+
+        map.on('load', () => {
+            /* Add the data to your map as a layer */
+            map.addSource('places', {
+                type: 'geojson',
+                data: stores
+            });
+            addMarkers();
+            buildLocationsList(stores)
+        });
+
+        function addMarkers() {
+            /* For each feature in the GeoJSON object above: */
+            for (const marker of stores.features) {
+                /* Create a div element for the marker. */
+                const el = document.createElement('div');
+                /* Assign a unique `id` to the marker. */
+                el.id = `marker-${marker.properties.id}`;
+                /* Assign the `marker` class to each marker for styling. */
+                el.classList.add('marker');
+
+                /**
+                 * Create a marker using the div element
+                 * defined above and add it to the map.
+                 **/
+                new mapboxgl.Marker(el, { offset: [0, -23] })
+                    .setLngLat(marker.geometry.coordinates)
+                    .addTo(map);
+
+                el.addEventListener('click', (e) => {
+                    /* Fly to the point */
+                    flyToStore(marker);
+                    /* Close all other popups and display popup for clicked store */
+                    createPopUp(marker);
+                    /* Highlight listing in sidebar */
+                    const activeItem = document.getElementsByClassName('active');
+                    e.stopPropagation();
+                    if (activeItem[0]) {
+                        activeItem[0].classList.remove('active');
+                    }
+                    const listing = document.getElementById(`listing-${marker.properties.id}`);
+                    listing.classList.add('active');
+                });
+            }
+        }
+
+
+        function flyToStore(currentFeature) {
+            map.flyTo({
+                center: currentFeature.geometry.coordinates,
+                zoom: 15
+            });
+        }
+
+        function createPopUp(currentFeature) {
+            const popUps = document.getElementsByClassName('mapboxgl-popup');
+            /** Check if there is already a popup on the map and if so, remove it */
+            if (popUps[0]) popUps[0].remove();
+
+            const popup = new mapboxgl.Popup({ closeOnClick: false })
+                .setLngLat(currentFeature.geometry.coordinates)
+                .setHTML(`<h3>Rainey Ice Cream</h3><h4>${currentFeature.properties.address}</h4>`)
+                .addTo(map);
+        }
+
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            marker: {
+                color: 'rgb(204, 227, 222)'
+            },
+            mapboxgl: mapboxgl
+        });
+
+        map.addControl(geocoder);
+
+    </script>
+</body>
+
+</html>
