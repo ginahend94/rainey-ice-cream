@@ -34,12 +34,16 @@
 html {
     overflow-x: hidden;
     margin-right: calc(-1 * (100vw - 100%));
+    height: 100%;
+    padding-right: calc(-1 * (100vw - 100%));
 }
 
 body {
     font-family: var(--body-font);
     color: rgb(var(--light-black));
     padding: 0;
+    min-height: 100vh;
+    height: 100%;
 }
 
 img {
@@ -466,13 +470,33 @@ main button:active {
 .sign-up-form .checkbox {
     flex-direction: row;
     align-items: center;
-    /* gap:10px; */
 }
 
 .sign-up-form button {
     background-color: rgb(var(--dark-green));
     color: rgb(var(--white));
 }
+
+
+/* LOCATIONS */
+
+.locations-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.locations-container {
+    padding: 20px;
+    position: relative;
+    flex: auto;
+    min-height: 450px;
+}
+iframe {
+    width: 100%;
+    height: 100%;
+    border: NONE;
+}
+
 
 /* FOOTER  */
 
