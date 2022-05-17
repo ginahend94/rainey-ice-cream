@@ -1,3 +1,5 @@
+import { Modal } from "./modal";
+
 export default () => {
     const footer = document.createElement('footer');
     
@@ -24,7 +26,7 @@ export default () => {
             icon: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
             <path fill="currentColor" d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
         </svg>`,
-            link: `#`,
+            link: `javascript:void(0);`,
         }
     ];
     socialsArray.forEach(social => {
@@ -43,16 +45,20 @@ export default () => {
     const linksArray = [
         {
             text: 'Contact',
-            link: '#',
+            link: 'javascript:void(0);',
         },
         {
             text: 'Privacy Policy',
-            link: '#',
+            link: 'javascript:void(0);',
         },
         {
             text: 'Help',
-            link: '#',
+            link: 'javascript:void(0);',
         },
+        {
+            text: 'About this website',
+            link: 'javascript:void(0);'
+        }
     ];
     linksArray.forEach(link => {
         const a = document.createElement('a');
@@ -60,8 +66,8 @@ export default () => {
         links.appendChild(a);
         a.href = link.link;
         a.innerHTML = link.text;
-        a.title = link.title;
-        a.target = '_blank';
+        a.title = 'All of these links open an "about" modal';
+        a.addEventListener('click', Modal.openModal);
     })
     const copyright = document.createElement('span');
     links.appendChild(copyright);

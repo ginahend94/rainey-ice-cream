@@ -1,2 +1,2 @@
-create locations page
-create modal
+add favicon
+figure out div#content

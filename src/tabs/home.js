@@ -1,6 +1,7 @@
 import IceCream from '../assets/images/ice-cream-cropped.png';
 import KidWithIceCream from '../assets/images/kid-with-ice-cream.jpg';
 import Sundae from '../assets/images/sundae.png';
+import { Modal } from '../elements/modal';
 
 export default () => {
     const wrapper = document.createElement('main');
@@ -35,6 +36,7 @@ export default () => {
     const button = document.createElement('button');
     heroTextContainer.appendChild(button);
     button.textContent = 'Join the Rainey Days Club';
+    button.addEventListener('click', Modal.openModal);
 
     // AD
     const adContainer = document.createElement('div');
@@ -74,6 +76,7 @@ export default () => {
     const charityButton = document.createElement('button');
     charityCopy.appendChild(charityButton);
     charityButton.textContent = 'Find out more';
+    charityButton.addEventListener('click', Modal.openModal);
 
     // MAILING LIST
     const mailingListWrapper = document.createElement('div');
@@ -94,6 +97,7 @@ export default () => {
     emailSubmit.classList.add('email-submit');
     mailingListContainer.appendChild(emailSubmit);
     emailSubmit.textContent = 'Subscribe';
+    emailSubmit.addEventListener('click', Modal.openModal)
 
     return wrapper;
 }
