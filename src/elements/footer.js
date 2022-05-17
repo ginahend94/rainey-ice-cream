@@ -42,30 +42,13 @@ export default () => {
     const links = document.createElement('div');
     footer.appendChild(links);
     links.classList.add('links');
-    const linksArray = [
-        {
-            text: 'Contact',
-            link: 'javascript:void(0);',
-        },
-        {
-            text: 'Privacy Policy',
-            link: 'javascript:void(0);',
-        },
-        {
-            text: 'Help',
-            link: 'javascript:void(0);',
-        },
-        {
-            text: 'About this website',
-            link: 'javascript:void(0);'
-        }
-    ];
+    const linksArray = ['Contact','Privacy Policy','Help','About this website',];
     linksArray.forEach(link => {
         const a = document.createElement('a');
         a.classList.add('footer-link');
         links.appendChild(a);
-        a.href = link.link;
-        a.innerHTML = link.text;
+        a.href = 'javascript:void(0);';
+        a.innerHTML = link;
         a.title = 'All of these links open an "about" modal';
         a.addEventListener('click', Modal.openModal);
     })

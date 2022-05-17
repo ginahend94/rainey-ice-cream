@@ -8,9 +8,6 @@ import {Modal} from './elements/modal.js';
 
 const page = () => {
 
-    // const content = document.getElementById('content');
-    // console.log(content)
-
     const footer = Footer();
     let main = home();
 
@@ -20,7 +17,6 @@ const page = () => {
         wrapper.insertBefore(main, footer);
     }
 
-    // const wrapper = document.createElement('div');
     const wrapper = document.getElementById('content')
     wrapper.classList.add('wrapper');
 
