@@ -35,6 +35,7 @@ html {
     overflow-x: hidden;
     margin-right: calc(-1 * (100vw - 100%));
     height: 100%;
+    padding-right: calc(-1 * (100vw - 100%));
 }
 
 body {
@@ -52,7 +53,6 @@ img {
 .wrapper {
     max-width: 1400px;
     min-height: 100vh;
-    height: 100%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -480,20 +480,21 @@ main button:active {
 
 /* LOCATIONS */
 
+.locations-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .locations-container {
+    padding: 20px;
     position: relative;
+    flex: auto;
+    min-height: 450px;
+}
+iframe {
     width: 100%;
     height: 100%;
-    border: solid 1px red;
-}
-.sidebar {
-    height: 100%;
-    width: calc(100% / 3);
-    /* height: 100vh; */
-    /* top:0;
-    left:0; */
-    /* overflow: hidden; */
-    border-right: 1px solid rgba(var(--black), .5);
+    border: NONE;
 }
 
 

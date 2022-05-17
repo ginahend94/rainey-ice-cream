@@ -26,23 +26,27 @@ export default () => {
     wrapper.appendChild(locationsContainer);
     locationsContainer.classList.add('locations-container');
 
-    const sidebar = document.createElement('div');
-    sidebar.classList.add('sidebar');
-    locationsContainer.appendChild(sidebar);
-    const heading = document.createElement('div');
-    heading.classList.add('heading');
-    sidebar.appendChild(heading);
-    const h3 = document.createElement('h3');
-    heading.appendChild(h3);
-    h3.textContent = 'Our locations';
-    const listings = document.createElement('div');
-    listings.id = 'listings';
-    listings.classList.add('listings');
-    sidebar.appendChild(listings);
+    // const sidebar = document.createElement('div');
+    // sidebar.classList.add('sidebar');
+    // locationsContainer.appendChild(sidebar);
+    // const heading = document.createElement('div');
+    // heading.classList.add('heading');
+    // sidebar.appendChild(heading);
+    // const h3 = document.createElement('h3');
+    // heading.appendChild(h3);
+    // h3.textContent = 'Our locations';
+    // const listings = document.createElement('div');
+    // listings.id = 'listings';
+    // listings.classList.add('listings');
+    // sidebar.appendChild(listings);
 
-    const map = document.createElement('div');
-    map.id = 'map';
-    map.classList.add('map');
+    const iframe = document.createElement('iframe');
+    locationsContainer.appendChild(iframe);
+    iframe.src = './map.html';
+
+    // const map = document.createElement('div');
+    // map.id = 'map';
+    // map.classList.add('map');
 
     return wrapper;
 }
